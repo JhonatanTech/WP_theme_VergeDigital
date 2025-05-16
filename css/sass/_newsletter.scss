@@ -1,0 +1,193 @@
+@use 'variables'as *;
+
+.newsletter {
+    width: 100%;
+
+    .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 54px 44px;
+        border-radius: 50px;
+
+        background-image: url('./../img/background-newsletter.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        /* Faz a imagem cobrir toda a área */
+        background-position: center;
+        /* Centraliza a imagem */
+
+        @media (max-width: 770px) {
+            flex-direction: column;
+            border-radius: 0;
+        }
+
+        >div {
+            width: 50%;
+
+            @media (max-width: 770px) {
+                width: 100%;
+            }
+        }
+
+        .text {
+            display: flex !important;
+            flex-wrap: wrap;
+            align-content: center;
+
+            h3 {
+
+                font-weight: normal;
+                background-image: linear-gradient(to right, #fff, #A9FE4B);
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                margin-bottom: 10px;
+
+                @media (max-width: 770px) {
+                    margin-bottom: 0;
+                }
+            }
+
+            > ul {
+                display: flex;
+                flex-direction: row;
+                gap: 18px;
+                width: 100%;
+                padding: 0;
+
+                @media (max-width: 770px) {
+                    padding: 0;
+                    justify-content: center;
+                }
+
+                li {
+                    width: 40px;
+                    height: 40px;
+
+                    @media (max-width: 770px) {
+                        width: 35px;
+                        height: 35px;
+                    }
+
+                    a {
+                        display: block;
+                        height: 100%;
+                        width: 100%;
+
+                        img {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border-radius: 22px;
+            padding: 55px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            max-width: 585px;
+
+            @media (max-width: 770px) {
+                display: block !important;
+                padding: 25px;
+            }
+
+            h3 {
+
+                font-weight: 700;
+                text-transform: uppercase;
+            }
+
+            p {
+
+
+                @media (max-width: 770px) {}
+            }
+
+            .tags {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-bottom: 57px;
+
+                .tag {
+                    padding: 9px 11px;
+                    text-transform: uppercase;
+
+                    color: $text-color;
+                    border: $text-color solid 1px;
+                    border-radius: 50px;
+
+                    @media (max-width: 770px) {}
+                }
+            }
+
+            form {
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+                gap: 44px;
+
+                input,
+                textarea {
+
+                    line-height: 36px;
+                    width: 100%;
+                    background-color: transparent;
+                    border: none;
+                    border-bottom: 2px solid $text-color;
+                    color: $text-color;
+
+                    @media (max-width: 770px) {}
+                }
+
+                .checkbox-group {
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    gap: 20px;
+
+                    >label {
+                        width: 100%;
+
+                        @media (max-width: 770px) {}
+                    }
+
+                    >div {
+                        display: flex;
+                        flex-direction: row;
+                        flex-wrap: nowrap;
+                        align-items: center;
+                        gap: 10px;
+                        width: auto;
+
+                        input {
+                            width: 13px;
+                            height: 13px;
+                        }
+                    }
+                }
+
+                button {
+                    display: block;
+                    background-color: $color-primary;
+                    border-radius: 50px;
+
+                    font-weight: bold;
+                    color: $color-background;
+                    padding: 14px 0;
+                    text-align: center;
+                    border: none;
+
+                    @media (max-width: 770px) {}
+                }
+            }
+        }
+    }
+}

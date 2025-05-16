@@ -1,0 +1,32 @@
+{
+  "name": "codigocomcafe",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/JhonatanTech/codigocomcafe#readme",
+  "bugs": {
+    "url": "https://github.com/JhonatanTech/codigocomcafe/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JhonatanTech/codigocomcafe.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-cli": "^2.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-csso": "^4.0.1",
+    "gulp-dart-sass": "^1.1.0",
+    "gulp-sass": "^6.0.1",
+    "sass": "^1.86.3",
+    "sass-loader": "^16.0.5"
+  }
+}

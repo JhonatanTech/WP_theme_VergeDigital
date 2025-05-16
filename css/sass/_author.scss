@@ -1,0 +1,50 @@
+@use 'variables'as *;
+
+.author {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+
+    h1 {
+        width: 100%;
+
+        span {
+            color: $color-primary;
+        }
+    }
+
+    .author-photo {
+        width: 100%;
+        margin: 40px 0 0 0;
+
+        img {
+            display: flex;
+            margin: 0 auto;
+            width: auto;
+            height: 200px;
+            border-radius: 50%;
+            border: 5px solid $color-primary;
+        }
+    }
+
+    p {
+        width: 100%;
+        margin: 5px 0;
+
+        text-align: justify;
+
+        strong {
+            color: $color-primary;
+            margin-right: 5px;
+        }
+
+        a {
+            color: #fff;
+        }
+    }
+
+    h2 {
+        width: 100%;
+    }
+}

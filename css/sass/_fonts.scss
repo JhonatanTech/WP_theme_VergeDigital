@@ -1,0 +1,90 @@
+@use 'variables'as *;
+
+@font-face {
+    src: url(./../fonts/Rethink_Sans/RethinkSans-VariableFont_wght.ttf);
+    font-family: "Rethink Sans";
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Material Icons Round";
+    font-style: normal;
+    src: url(./../fonts/MaterialIconsRound-Regular.otf);
+}
+
+$text-small: 14px;
+$text-base: 18px;
+$text-large: 24px;
+$text-xl: 32px;
+$text-xxl: 40px;
+$text-xxxl: 52px;
+
+.material-icons-round {
+    font-family: "Material Icons Round";
+    font-weight: normal;
+    font-style: normal;
+    font-size: 40px;
+    /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+}
+
+body {
+    font-family: "Rethink Sans";
+    color: $text-color;
+}
+
+h1,
+h1 strong {
+    font-size: $text-xxxl;
+    @media (max-width:770px) {
+        font-size: $text-xxl;
+    }
+}
+
+h2,
+h2 strong {
+    font-size: $text-xxl;
+
+    @media (max-width:770px) {
+        font-size: $text-xl;
+    }
+}
+
+h3,
+h3 strong {
+    font-size: $text-large;
+
+    @media (max-width:770px) {
+        font-size: $text-large;
+    }
+}
+
+// Estilização para parágrafos
+p,
+strong {
+    font-size: $text-base;
+    line-height: 1.6;
+}
+
+a {
+    font-size: $text-base;
+    
+    @media (max-width:770px) {
+        font-size: $text-small;
+    }
+
+    &:hover{
+        animation: heartBeat;
+        animation-duration: 1s;
+    }
+}
+
+.material-icons-round {
+    font-size: $text-small;
+}

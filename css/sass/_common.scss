@@ -1,0 +1,107 @@
+@use 'variables'as *;
+
+*::-webkit-scrollbar {
+    width: 12px;
+    /* width of the entire scrollbar */
+}
+
+
+*::-webkit-scrollbar-track {
+    background: $color-background;
+    /* color of the tracking area */
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: $color-primary;
+    /* color of the scroll thumb */
+    border-radius: 20px;
+    /* roundness of the scroll thumb */
+}
+
+body {
+    position: relative;
+    background: $color-background;
+    object-fit: cover;
+    background-size: cover !important;
+    background-position: top !important;
+    background-repeat: no-repeat !important;
+}
+
+body.home {
+    background: $color-background no-repeat;
+    background-image: url('./../img/background.svg');
+}
+
+.pagina-sobre {
+    background: #000 no-repeat center center;
+    background-image: url(./../img/background-sobre.svg);
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+
+    @media screen and (max-width: 900px) {
+        background-image: none;
+    }
+}
+
+.container {
+    max-width: 1224px;
+    width: 100%;
+    margin: 0 auto;
+
+    @media screen and (max-width: 900px) {
+        width: 100%;
+        padding: 0 45px;
+        margin: 0;
+    }
+}
+
+hr.container{
+    @media screen and (max-width: 900px) {
+        padding: 0;
+    }
+}
+
+a {
+    color: $color-primary;
+}
+
+section {
+    padding: 60px 0;
+}
+
+hr {
+    width: 100%;
+    background-color: #fff;
+    height: 3px;
+    border-radius: 7px;
+    border: none;
+    margin: 10px 0;
+
+    animation: backInRight;
+    animation-duration: 1.55s;
+}
+
+code {
+    padding: 5px 10px;
+    background: $color-secondary;
+    border-radius: 5px;
+    color: $color-primary;
+    font-family: monospace;
+}
+
+.mobile {
+    display: none !important;
+
+    @media screen and (max-width: 900px) {
+        display: block !important;
+    }
+}
+
+.desktop {
+    display: block !important;
+
+    @media screen and (max-width: 900px) {
+        display: none !important;
+    }
+}

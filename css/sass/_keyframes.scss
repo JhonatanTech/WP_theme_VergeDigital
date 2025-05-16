@@ -1,0 +1,41 @@
+@use 'variables'as *;
+
+@keyframes identifier {
+    0% {
+        top: 0;
+        left: 0;
+    }
+
+    30% {
+        top: 50px;
+    }
+
+    68%,
+    72% {
+        left: 50px;
+    }
+
+    100% {
+        top: 100px;
+        left: 100%;
+    }
+}
+
+@keyframes show-menu-mobile {
+    from {
+        opacity: 0;
+        height: 0;
+    }
+
+    to {
+        opacity: 1;
+        height: 100%;
+    }
+}
+
+#menu-menu.show,
+.menu-menu-container {
+    animation: show-menu-mobile 2s normal;
+}
+
+.logo {}

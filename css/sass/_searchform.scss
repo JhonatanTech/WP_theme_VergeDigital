@@ -1,0 +1,69 @@
+@use 'variables'as *;
+
+.search-header {
+    width: 100%;
+    padding: 10px 0;
+    background: $color-primary;
+
+    @media (max-width: 770px) {
+        background: $color-background;
+        padding: 0;
+    }
+
+    #searchform {
+        width: 50%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+
+        @media (max-width: 770px) {
+            width: 100%;
+            padding-bottom: 0;
+            margin-top: 20px;
+            justify-content: flex-start;
+        }
+
+        input {
+            background-color: transparent;
+            border: none;
+            border-bottom: 2px solid $color-secondary !important;
+            line-height: 24px;
+            font-weight: bold;
+            color: $color-secondary;
+            padding: 5px 10px;
+            width: 75%;
+
+            &::placeholder {
+                color: $color-secondary;
+
+                @media (max-width: 770px) {
+                    color: $color-primary;
+                }
+            }
+
+            @media (max-width: 770px) {
+                width: calc(100% - 45px);
+                color: $color-primary;
+                border-bottom: 2px solid $color-primary !important;
+            }
+        }
+
+        button {
+            margin-left: 5px;
+
+            padding: 5px;
+            width: auto;
+            text-align: center;
+            color: $color-secondary;
+            background-color: transparent;
+            border: none;
+
+            @media (max-width: 770px) {
+                color: $color-primary;
+            }
+        }
+    }
+}
