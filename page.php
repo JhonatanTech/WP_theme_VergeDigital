@@ -4,7 +4,7 @@
     <div class="heading">
         <h1 class="subtitulo"><?php the_title(); ?></h1>
     </div>
-    <hr>
+    <hr class="container">
     <div class="content"><?php echo the_content(); ?></div>
 </section>
 

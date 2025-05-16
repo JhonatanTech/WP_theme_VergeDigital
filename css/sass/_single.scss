@@ -64,6 +64,13 @@
     }
 }
 
+.single{
+    .content{
+        animation: backInRight;
+        animation-duration: 1.58s;
+    }
+}
+
 .social_share_links {
     position: fixed;
     bottom: 40px;

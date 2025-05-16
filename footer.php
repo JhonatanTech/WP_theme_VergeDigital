@@ -10,7 +10,7 @@ $categories = get_categories(array(
         <div class="about">
             <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/imagotipo.svg">
         </div>
-        <hr>
+        <hr class="container">
         <div class="links">
             <div class="itens">
                 <h3>Redes sociais</h2>
@@ -36,7 +36,7 @@ $categories = get_categories(array(
 <!-- Footer WordPress -->
 <?php wp_footer(); ?>
 
-<a href="https://wa.me/message/THVPRTFBOLWFE1" class="fale">Fale com a gente!</a>
+<a href="https://wa.me/message/THVPRTFBOLWFE1" class="fale"><i class="icon-whatsapp"></i></a>
 
 <script>
     jQuery(document).ready(function($) {

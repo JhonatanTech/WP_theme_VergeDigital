@@ -34,7 +34,7 @@ function social_share_links($post_id) {
         <?php the_post_thumbnail('full'); ?>
         <!-- <p><?php the_excerpt(); ?></p> -->
     </div>
-    <hr>
+    <hr class="container">
     <div class="content"><?php echo the_content(); ?></div>
 </section>
 
