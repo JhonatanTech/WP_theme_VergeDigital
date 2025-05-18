@@ -1,4 +1,11 @@
-@use 'variables'as *;
+@use 'variables' as *;
+
+.single hr {
+    animation: backInRight;
+    animation-duration: 1.58s;
+    margin: 50px 0;
+}
+
 
 .heading {
     position: relative;
@@ -10,35 +17,45 @@
     animation: backInLeft;
     animation-duration: 1.55s;
 
-    img {
-        display: block;
+    .banner{
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
         width: 100%;
-        height: 300px;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-size: cover;
-        object-fit: cover;
-        object-position: center;
-        border-radius: 10px;
-        margin-bottom: 20px;
-        filter: grayscale(1) brightness(.25);
 
-        @media (max-width:770px) {
-            height: auto;
+        img {
+            display: block;
+            width: 100%;
+            height: 300px;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 10px;
+            filter: grayscale(1) brightness(.25);
+
+            @media (max-width:770px) {
+                height: auto;
+            }
+        }
+
+        h1 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin: 0;
+            z-index: 2;
+            text-align: center;
         }
     }
 
-    h1 {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        margin: 0;
-        z-index: 2;
-    }
+    
 
     p {
-        margin-top: 0;
+        margin: 20px 0 0 0;
     }
 
     .date,
@@ -61,13 +78,6 @@
         a {
             color: #fff;
         }
-    }
-}
-
-.single{
-    .content{
-        animation: backInRight;
-        animation-duration: 1.58s;
     }
 }
 
@@ -112,8 +122,11 @@
     .sobre {
         margin-bottom: 961px;
 
+        animation: backInUp;
+        animation-duration: 1.59s;
+
         @media screen and (max-width: 900px) {
-            margin: 60px 0;
+            margin: 50px 0;
         }
 
         h2 {

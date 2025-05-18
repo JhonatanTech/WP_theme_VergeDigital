@@ -110,6 +110,10 @@ div.category {
         &.header-category {
             animation: backInLeft;
             animation-duration: 1.55s;
+
+            @media (max-width: 770px) {
+                flex-direction: column;
+            }
         }
 
         @media (max-width: 770px) {

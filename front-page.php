@@ -10,7 +10,7 @@
             </video>
 
             <p>Fazemos de tudo para<br> sua marca se <strong>destacar.</strong></p>
-            <a class="primary" href="#">Conheça nosso portfólio <span class="material-icons-round">arrow_outward</span></a>
+            <a class="primary" href="https://vergedigital.com.br/category/todos/">Conheça nosso portfólio <span class="material-icons-round">arrow_outward</span></a>
             <a class="secundary" href="https://wa.me/message/THVPRTFBOLWFE1">PEÇA SEU ORÇAMENTO<span class="material-icons-round">arrow_outward</span></a>
         </div>
 
@@ -97,7 +97,7 @@
 
     <div class="container">
         <h2>Nossos projetos de <strong>sucesso</strong></h2>
-        <a href="#">ver mais <span class="material-icons-round">arrow_outward</span></a>
+        <a href="https://vergedigital.com.br/category/todos/">ver mais <span class="material-icons-round">arrow_outward</span></a>
 
         <div class="posts">
             <?php if (!empty($my_posts)) {
@@ -135,7 +135,7 @@
 
 <section class="clientes">
     <div class="container">
-        <h3>alguns de nossos clientes</h3>
+        <h2>Alguns de nossos clientes</h2>
 
         <ul id="clientes" class="slick-clientes">
             <li><img src="<?php echo get_stylesheet_directory_uri(); ?>/img/adoletra.svg" alt=""></li>

@@ -51,7 +51,7 @@ body.home {
 
     @media screen and (max-width: 900px) {
         width: 100%;
-        padding: 0 45px;
+        padding: 0 20px;
         margin: 0;
     }
 }
@@ -68,6 +68,10 @@ a {
 
 section {
     padding: 60px 0;
+
+    @media screen and (max-width: 900px) {
+        padding: 50px 0;
+    }
 }
 
 hr {

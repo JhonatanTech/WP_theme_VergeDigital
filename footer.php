@@ -41,7 +41,7 @@ $categories = get_categories(array(
 <script>
     jQuery(document).ready(function($) {
         jQuery('.slick-clientes').slick({
-            slidesToShow: 2,
+            slidesToShow: 1,
             slidesToScroll: 1,
             autoplay: true,
             autoplaySpeed: 2000,
