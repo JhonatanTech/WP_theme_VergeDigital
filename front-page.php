@@ -150,7 +150,7 @@
     <div class="container">
         <div class="text">
             <h3>
-                Sua marca merece um design à altura.
+                Sua marca merece um design à altura. <br>
                 Fale com a gente!
             </h3>
             <ul>

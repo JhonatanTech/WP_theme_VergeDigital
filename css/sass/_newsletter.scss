@@ -1,4 +1,4 @@
-@use 'variables'as *;
+@use 'variables' as *;
 
 .newsletter {
     width: 100%;
@@ -37,13 +37,13 @@
             align-content: center;
 
             h3 {
-
                 font-weight: normal;
                 background-image: linear-gradient(to right, #fff, #A9FE4B);
                 background-clip: text;
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 margin-bottom: 10px;
+                font-size: 34px;
 
                 @media (max-width: 770px) {
                     margin: 0;

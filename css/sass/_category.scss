@@ -226,9 +226,8 @@ div.category {
 .orcar {
     a {
         display: flex;
-        max-width: 285px;
+        max-width: 316px;
         width: 100%;
-
         color: $text-color-secundary;
         background-color: $color-primary;
         border-radius: 50px;
@@ -240,6 +239,10 @@ div.category {
         align-items: center;
         gap: 0.3rem;
         transition: color 0.2s ease;
+
+        @media (max-width: 770px) {
+            max-width: 261px;
+        }
 
         span {
 

@@ -135,7 +135,7 @@
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin: 230px auto 80px auto;
+            margin: 100px auto 80px auto;
             max-width: 1000px;
             text-align: center;
 
@@ -183,6 +183,7 @@
 
         @media screen and (max-width: 900px) {
             padding: 0;
+            margin-bottom: 50px;
         }
 
         &__titulo {
@@ -303,6 +304,10 @@
 
     .essencia {
         padding: 80px 20px;
+
+        @media screen and (max-width: 900px) {
+            padding: 50px 20px;
+        }
     }
 
     .essencia__container {
