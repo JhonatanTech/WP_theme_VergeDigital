@@ -30,9 +30,9 @@ div.category {
             a {
                 display: inline-block;
                 padding: 8px 16px;
-                border: 2px solid white;
+                border: 2px solid $text-color;
                 border-radius: 999px;
-                color: white;
+                color: $text-color;
                 text-transform: uppercase;
                 font-weight: bold;
 
@@ -40,18 +40,18 @@ div.category {
                 transition: all 0.3s ease;
 
                 &:hover {
-                    background-color: #5DD300;
-                    border-color: #5DD300;
-                    color: black;
+                    background-color: $color-category-green;
+                    border-color: $color-category-green;
+                    color: $color-background;
                 }
 
                 &.category-design-grafico {
 
                     &:hover,
                     &.active {
-                        background-color: #E5FC54 !important;
-                        border-color: #E5FC54;
-                        color: $text-color-secundary;
+                        background-color: $color-category-yellow !important;
+                        border-color: $color-category-yellow;
+                        color: $text-color-secondary;
                     }
                 }
 
@@ -59,9 +59,9 @@ div.category {
 
                     &:hover,
                     &.active {
-                        background-color: #9B6FEB !important;
-                        border-color: #9B6FEB;
-                        color: $text-color-secundary;
+                        background-color: $color-category-purple !important;
+                        border-color: $color-category-purple;
+                        color: $text-color-secondary;
                     }
                 }
 
@@ -69,9 +69,9 @@ div.category {
 
                     &:hover,
                     &.active {
-                        background-color: #F3612E !important;
-                        border-color: #F3612E;
-                        color: $text-color-secundary;
+                        background-color: $color-category-orange !important;
+                        border-color: $color-category-orange;
+                        color: $text-color-secondary;
                     }
                 }
 
@@ -79,9 +79,9 @@ div.category {
 
                     &:hover,
                     &.active {
-                        background-color: #2B70F9 !important;
-                        border-color: #2B70F9;
-                        color: $text-color-secundary;
+                        background-color: $color-category-blue !important;
+                        border-color: $color-category-blue;
+                        color: $text-color-secondary;
                     }
                 }
 
@@ -89,9 +89,9 @@ div.category {
 
                     &:hover,
                     &.active {
-                        background-color: #FF88FC !important;
-                        border-color: #FF88FC;
-                        color: $text-color-secundary;
+                        background-color: $color-category-pink !important;
+                        border-color: $color-category-pink;
+                        color: $text-color-secondary;
                     }
                 }
             }
@@ -111,12 +111,12 @@ div.category {
             animation: backInLeft;
             animation-duration: 1.55s;
 
-            @media (max-width: 770px) {
+            @media (max-width: $breakpoint-mobile) {
                 flex-direction: column;
             }
         }
 
-        @media (max-width: 770px) {
+        @media (max-width: $breakpoint-mobile) {
             grid-template-columns: repeat(1, 1fr);
             /* 1 colunas iguais */
         }
@@ -131,16 +131,16 @@ div.category {
             h2 {
                 margin-bottom: 30px;
 
-                color: #fff;
+                color: $text-color;
             }
 
-            @media (max-width: 770px) {
+            @media (max-width: $breakpoint-mobile) {
                 width: 100%;
                 margin: 0 0 20px 0;
             }
 
             &:hover {
-                background: linear-gradient(270deg, #2e2e2e 0, #141414 100%) !important;
+                background: linear-gradient(270deg, $color-gray-dark 0, $color-gray-darker 100%) !important;
             }
 
             img {
@@ -183,7 +183,7 @@ div.category {
 
                 h3 {
                     width: 100%;
-                    color: #fff;
+                    color: $text-color;
 
                     text-transform: capitalize;
                     text-align: start;
@@ -228,7 +228,7 @@ div.category {
         display: flex;
         max-width: 316px;
         width: 100%;
-        color: $text-color-secundary;
+        color: $text-color-secondary;
         background-color: $color-primary;
         border-radius: 50px;
         padding: 20px 24px;
@@ -237,16 +237,27 @@ div.category {
         text-decoration: none;
         font-weight: 600;
         align-items: center;
+        justify-content: center;
         gap: 0.3rem;
-        transition: color 0.2s ease;
+        transition: background-color 0.25s ease, transform 0.25s ease;
 
-        @media (max-width: 770px) {
+        @media (max-width: $breakpoint-mobile) {
             max-width: 261px;
         }
 
         span {
 
             font-weight: bold;
+        }
+
+        &:hover {
+            background-color: $color-hover;
+            transform: translateY(-2px);
+        }
+
+        &:focus-visible {
+            outline: 2px solid $text-color;
+            outline-offset: 3px;
         }
     }
 }

@@ -1,42 +1,36 @@
-<?php
-$categories = get_categories(array(
-    'orderby' => 'name',
-    'order'   => 'ASC'
-));
-?>
-
 <footer>
-    <nav class="container">
-        <div class="about">
-            <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/imagotipo.svg">
-        </div>
-        <hr class="container">
-        <div class="links">
-            <div class="itens">
-                <h3>Redes sociais</h2>
-                <ul class="redes">
-                    <li><a href="https://wa.me/message/THVPRTFBOLWFE1"><img src="<?php echo get_stylesheet_directory_uri(); ?>/img/whats.svg" alt=""></a></li>
-                    <li><a href="https://www.instagram.com/vergedigital_/"><img src="<?php echo get_stylesheet_directory_uri(); ?>/img/insta.svg" alt=""></a></li>
-                    <li><a href="https://www.behance.net/vergedigital_"><img src="<?php echo get_stylesheet_directory_uri(); ?>/img/behance.svg" alt=""></a></li>
+    <div class="footer-card container">
+        <div class="footer-card__top">
+            <nav class="footer-card__nav" aria-label="Menu do rodapé">
+                <a href="<?php echo esc_url(home_url('/')); ?>">Início</a>
+                <a href="<?php echo esc_url(home_url('/#projetos')); ?>">Projetos</a>
+                <a href="<?php echo esc_url(home_url('/#servicos')); ?>">Serviços</a>
+                <a href="<?php echo esc_url(home_url('/#contato')); ?>">Contato</a>
+            </nav>
+
+            <div class="footer-card__contact">
+                <ul class="footer-card__social">
+                    <li><a href="https://wa.me/message/THVPRTFBOLWFE1" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><img src="<?php echo get_stylesheet_directory_uri(); ?>/img/whats.svg" alt=""></a></li>
+                    <li><a href="https://www.instagram.com/vergedigital_/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><img src="<?php echo get_stylesheet_directory_uri(); ?>/img/insta.svg" alt=""></a></li>
+                    <li><a href="https://www.behance.net/vergedigital_" target="_blank" rel="noopener noreferrer" aria-label="Behance"><img src="<?php echo get_stylesheet_directory_uri(); ?>/img/behance.svg" alt=""></a></li>
                 </ul>
-            </div>
-            <div class="itens">
-                <h3>Contato</h2>
-                <ul>
-                    <a href="tel:+5511967416661">+55 11 96741-6661</a><br><br>
-                    <a href="mailto:contato@vergedigital.com.br">contato@vergedigital.com.br</a>
-            </div>
-            <div class="itens">
-                <h4>© 2025 por VERGÊ DIGITAL</h4>
+
+                <p>E-mail: <a href="mailto:contato@vergedigital.com.br">contato@vergedigital.com.br</a></p>
+                <p><a href="tel:+5511967416661">+55 11 96741-6661</a></p>
+                <p class="footer-card__location">São Paulo, SP, Brasil</p>
             </div>
         </div>
-    </nav>
+
+        <div class="footer-card__wordmark" aria-hidden="true"><span>Vergê</span></div>
+    </div>
+
+    <p class="copyright">© <?php echo date('Y'); ?> por VERGÊ DIGITAL</p>
 </footer>
 
 <!-- Footer WordPress -->
 <?php wp_footer(); ?>
 
-<a href="https://wa.me/message/THVPRTFBOLWFE1" class="fale"><i class="icon-whatsapp"></i></a>
+<a href="https://wa.me/message/THVPRTFBOLWFE1" class="fale" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco pelo WhatsApp"><i class="icon-whatsapp"></i></a>
 
 <script>
     jQuery(document).ready(function($) {
@@ -98,8 +92,6 @@ $categories = get_categories(array(
         $(window).on('resize', slickInitIfMobile); // on resize
     });
 </script>
-
-<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/script.js"></script>
 </body>
 
 </html>

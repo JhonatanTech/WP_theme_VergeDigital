@@ -5,10 +5,10 @@
     flex-direction: column;
 
     h1 {
-        color: #fff;
+        color: $text-color;
     }
 
-    @media (max-width: 770px) {
+    @media (max-width: $breakpoint-mobile) {
         padding: 50px 20px;
     }
 
@@ -16,7 +16,7 @@
         width: 50%;
         margin: 0 auto;
 
-        @media (max-width: 770px) {
+        @media (max-width: $breakpoint-mobile) {
             width: 100%;
         }
     }

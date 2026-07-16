@@ -1,8 +1,34 @@
-// Colors
-$color-background: #000;
+// Base palette
+$color-black: #000;
+$color-white: #fff;
 $color-primary: #A9FE4B;
-$cor-hover: #99ff33;
+$color-primary-glow: #57ff35;
+$color-hover: #99ff33;
 $color-secondary: #1E1E1E;
-$text-color: #fff;
-$text-color-secundary: #000;
-$text-color-secundario: #ccc;
+$color-green-dark: #244724;
+
+// Grayscale
+$color-gray-dark: #2e2e2e;
+$color-gray-darker: #141414;
+$color-gray-medium: #6e6e6e;
+$color-gray-light: #797979;
+$color-black-soft: #1C1C1C;
+$color-black-deep: #050505;
+
+// Category accent colors
+$color-category-green: #5DD300;
+$color-category-yellow: #E5FC54;
+$color-category-purple: #9B6FEB;
+$color-category-orange: #F3612E;
+$color-category-blue: #2B70F9;
+$color-category-pink: #FF88FC;
+
+// Semantic aliases
+$color-background: $color-black;
+$text-color: $color-white;
+$text-color-secondary: $color-black;
+$text-color-muted: #ccc;
+
+// Breakpoints
+$breakpoint-mobile: 770px;
+$breakpoint-tablet: 900px;

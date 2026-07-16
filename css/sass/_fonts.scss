@@ -23,8 +23,7 @@ $text-xxxl: 52px;
     font-family: "Material Icons Round";
     font-weight: normal;
     font-style: normal;
-    font-size: 40px;
-    /* Preferred icon size */
+    font-size: $text-small;
     display: inline-block;
     line-height: 1;
     text-transform: none;
@@ -42,7 +41,7 @@ body {
 h1,
 h1 strong {
     font-size: $text-xxxl;
-    @media (max-width:770px) {
+    @media (max-width: $breakpoint-mobile) {
         font-size: $text-xxl;
     }
 }
@@ -51,7 +50,7 @@ h2,
 h2 strong {
     font-size: $text-xxl;
 
-    @media (max-width:770px) {
+    @media (max-width: $breakpoint-mobile) {
         font-size: $text-xl;
     }
 }
@@ -60,7 +59,7 @@ h3,
 h3 strong {
     font-size: $text-large;
 
-    @media (max-width:770px) {
+    @media (max-width: $breakpoint-mobile) {
         font-size: $text-large;
     }
 }
@@ -75,7 +74,7 @@ strong {
 a {
     font-size: $text-base;
     
-    @media (max-width:770px) {
+    @media (max-width: $breakpoint-mobile) {
         font-size: $text-small;
     }
 
@@ -83,8 +82,4 @@ a {
         animation: heartBeat;
         animation-duration: 1s;
     }
-}
-
-.material-icons-round {
-    font-size: $text-small;
 }

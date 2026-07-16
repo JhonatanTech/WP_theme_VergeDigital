@@ -6,7 +6,7 @@
             <img class="slogan" src="<?php echo get_stylesheet_directory_uri(); ?>/img/slogan.svg" alt="Caneca com código">
 
             <video muted autoplay playsinline loop class="mobile">
-                <source src="<?php echo get_stylesheet_directory_uri(); ?>/img/MOEDA.mp4" type="video/webm" />
+                <source src="<?php echo get_stylesheet_directory_uri(); ?>/img/MOEDA.mp4" type="video/mp4" />
             </video>
 
             <p>Fazemos de tudo para<br> sua marca se <strong>destacar.</strong></p>
@@ -17,7 +17,7 @@
         <!-- <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/moeda.svg" alt=""> -->
 
         <video muted autoplay playsinline loop class="desktop">
-            <source src="<?php echo get_stylesheet_directory_uri(); ?>/img/MOEDA.mp4" type="video/webm" />
+            <source src="<?php echo get_stylesheet_directory_uri(); ?>/img/MOEDA.mp4" type="video/mp4" />
         </video>
     </div>
 </section>
@@ -27,7 +27,7 @@
     <img class="mobile" src="<?php echo get_stylesheet_directory_uri(); ?>/img/faixa-mobile.svg" alt="">
 </section>
 
-<section class="servicos">
+<section class="servicos" id="servicos">
     <div class="container">
         <div class="text">
             <h2>Um estúdio <strong>colaborativo</strong> digital</h2>
@@ -84,7 +84,7 @@
     </div>
 </section>
 
-<section class="posts">
+<section class="posts" id="projetos">
     <?php
     $args = array(
         'numberposts' => 5,
@@ -146,7 +146,7 @@
     </div>
 </section>
 
-<section class="newsletter">
+<section class="newsletter" id="contato">
     <div class="container">
         <div class="text">
             <h3>

@@ -33,13 +33,13 @@ body.home {
 }
 
 .pagina-sobre {
-    background: #000 no-repeat center center;
+    background: $color-background no-repeat center center;
     background-image: url(./../img/background-sobre.svg);
     background-size: cover;
     background-position: top;
     background-repeat: no-repeat;
 
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: $breakpoint-tablet) {
         background-image: none;
     }
 }
@@ -49,7 +49,7 @@ body.home {
     width: 100%;
     margin: 0 auto;
 
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: $breakpoint-tablet) {
         width: 100%;
         padding: 0 20px;
         margin: 0;
@@ -57,7 +57,7 @@ body.home {
 }
 
 hr.container{
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: $breakpoint-tablet) {
         padding: 0;
     }
 }
@@ -69,14 +69,14 @@ a {
 section {
     padding: 60px 0;
 
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: $breakpoint-tablet) {
         padding: 50px 0;
     }
 }
 
 hr {
     width: 100%;
-    background-color: #fff;
+    background-color: $text-color;
     height: 3px;
     border-radius: 7px;
     border: none;
@@ -97,7 +97,7 @@ code {
 .mobile {
     display: none !important;
 
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: $breakpoint-tablet) {
         display: block !important;
     }
 }
@@ -105,7 +105,7 @@ code {
 .desktop {
     display: block !important;
 
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: $breakpoint-tablet) {
         display: none !important;
     }
 }

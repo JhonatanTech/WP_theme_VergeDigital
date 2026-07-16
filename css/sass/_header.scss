@@ -35,7 +35,7 @@ header {
                 display: block !important;
             }
 
-            @media (max-width: 770px) {
+            @media (max-width: $breakpoint-mobile) {
                 // position: relative;
                 width: 100%;
             }
@@ -53,7 +53,7 @@ header {
                 margin: 0;
                 padding: 0;
 
-                @media (max-width: 770px) {
+                @media (max-width: $breakpoint-mobile) {
                     display: none;
                     width: 100%;
                     padding: 0;
@@ -69,7 +69,7 @@ header {
                     margin: 0 5px;
                     list-style: none;
 
-                    @media (max-width: 770px) {
+                    @media (max-width: $breakpoint-mobile) {
                         margin: 0;
                     }
 
@@ -111,7 +111,7 @@ header {
                         box-shadow: 10px 10px 51px -13px rgba(0, 0, 0, 0.75);
                         z-index: 1;
 
-                        @media (max-width: 770px) {
+                        @media (max-width: $breakpoint-mobile) {
                             width: 100%;
                             display: block !important;
                             position: relative;
@@ -132,7 +132,7 @@ header {
                             top: -10px;
                             left: 25px;
 
-                            @media (max-width: 770px) {
+                            @media (max-width: $breakpoint-mobile) {
                                 display: none;
                             }
                         }
@@ -158,14 +158,14 @@ header {
             color: $color-primary;
             font-weight: bold !important;
 
-            @media (min-width: 771px) {
+            @media (min-width: $breakpoint-mobile + 1) {
                 display: none !important;
             }
         }
     }
 }
 
-@media (max-width: 771px) {
+@media (max-width: $breakpoint-mobile) {
     .menu {
         display: none;
         /* Oculta o menu por padrão */

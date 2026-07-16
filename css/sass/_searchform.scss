@@ -5,7 +5,7 @@
     padding: 10px 0;
     background: $color-primary;
 
-    @media (max-width: 770px) {
+    @media (max-width: $breakpoint-mobile) {
         background: $color-background;
         padding: 0;
     }
@@ -19,7 +19,7 @@
         justify-content: center;
         margin: 0 auto;
 
-        @media (max-width: 770px) {
+        @media (max-width: $breakpoint-mobile) {
             width: 100%;
             padding-bottom: 0;
             margin-top: 20px;
@@ -39,12 +39,12 @@
             &::placeholder {
                 color: $color-secondary;
 
-                @media (max-width: 770px) {
+                @media (max-width: $breakpoint-mobile) {
                     color: $color-primary;
                 }
             }
 
-            @media (max-width: 770px) {
+            @media (max-width: $breakpoint-mobile) {
                 width: calc(100% - 45px);
                 color: $color-primary;
                 border-bottom: 2px solid $color-primary !important;
@@ -61,7 +61,7 @@
             background-color: transparent;
             border: none;
 
-            @media (max-width: 770px) {
+            @media (max-width: $breakpoint-mobile) {
                 color: $color-primary;
             }
         }
