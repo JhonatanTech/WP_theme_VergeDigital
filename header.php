@@ -5,39 +5,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="<?php echo get_stylesheet_directory_uri(); ?>/img/logo.svg" />
-    <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/style.css">
 
     <!-- Google fontes -->
     <!-- <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet"> -->
-
-    <!-- Slick slide -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
-
-    <!-- Jquery -->
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js" integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <!-- Animate CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <title><?php wp_title('|', true, 'right');
             bloginfo('name'); ?></title>
 
     <!-- Open Graph (Facebook e LinkedIn) -->
-    <meta property="og:title" content="<?php the_title(); ?>" />
-    <meta property="og:description" content="<?php echo get_the_excerpt(); ?>" />
-    <meta property="og:image" content="<?php echo get_the_post_thumbnail_url(null, 'full'); ?>" />
-    <meta property="og:url" content="<?php the_permalink(); ?>" />
+    <meta property="og:title" content="<?php echo esc_attr(get_the_title()); ?>" />
+    <meta property="og:description" content="<?php echo esc_attr(get_the_excerpt()); ?>" />
+    <meta property="og:image" content="<?php echo esc_url(get_the_post_thumbnail_url(null, 'full')); ?>" />
+    <meta property="og:url" content="<?php echo esc_url(get_permalink()); ?>" />
     <meta property="og:type" content="article" />
     <meta property="og:locale" content="en_US" />
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="<?php the_title(); ?>" />
-    <meta name="twitter:description" content="<?php echo get_the_excerpt(); ?>" />
-    <meta name="twitter:image" content="<?php echo get_the_post_thumbnail_url(null, 'full'); ?>" />
+    <meta name="twitter:title" content="<?php echo esc_attr(get_the_title()); ?>" />
+    <meta name="twitter:description" content="<?php echo esc_attr(get_the_excerpt()); ?>" />
+    <meta name="twitter:image" content="<?php echo esc_url(get_the_post_thumbnail_url(null, 'full')); ?>" />
     <meta name="twitter:site" content="@vergedigital_" />
 
     <!-- Header WordPress -->
@@ -52,7 +39,7 @@
     </div> -->
     <header>
         <nav class="container">
-            <a href="<?php echo bloginfo('url'); ?>">
+            <a href="<?php echo esc_url(home_url('/')); ?>">
                 <img class="logo" src="<?php echo get_stylesheet_directory_uri();  ?>/img/logo.svg"
                     alt="Logo Verge Digital">
             </a>
