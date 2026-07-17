@@ -30,7 +30,7 @@
 <!-- Footer WordPress -->
 <?php wp_footer(); ?>
 
-<a href="https://wa.me/message/THVPRTFBOLWFE1" class="fale" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco pelo WhatsApp"><i class="icon-whatsapp"></i></a>
+<a href="https://wa.me/message/THVPRTFBOLWFE1" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco pelo WhatsApp"><i class="icon-whatsapp"></i></a>
 
 <script>
     jQuery(document).ready(function($) {

@@ -39,13 +39,13 @@
     </div> -->
     <header>
         <nav class="container">
-            <a href="<?php echo esc_url(home_url('/')); ?>">
+            <a href="<?php echo esc_url(home_url('/')); ?>" class="logo-link">
                 <img class="logo" src="<?php echo get_stylesheet_directory_uri();  ?>/img/logo.svg"
                     alt="Logo Verge Digital">
             </a>
             <span class="material-icons-round menu-mobile">menu</span>
             <?php wp_nav_menu(array('theme_location' => 'header')); ?>
-            <!-- <a href="https://wa.me/message/THVPRTFBOLWFE1" class="fale">Fale com a gente!</a> -->
+            <a href="https://wa.me/message/THVPRTFBOLWFE1" class="fale" target="_blank" rel="noopener noreferrer">Fale com a gente!</a>
         </nav>
     </header>
 

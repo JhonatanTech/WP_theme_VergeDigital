@@ -1,21 +1,35 @@
 @use 'variables' as *;
 
 header {
-    padding-top: 60px;
+    padding: 24px 0;
+    position: sticky;
+    top: 16px;
+    z-index: 100;
 
     nav {
+        position: relative;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
-        align-items: center;
+        gap: 16px;
+        padding: 12px 12px 12px 24px;
+        border-radius: 999px;
+        background-color: rgba($color-green-muted, 0.12);
+        backdrop-filter: blur(24px) saturate(120%);
+        -webkit-backdrop-filter: blur(24px) saturate(120%);
+        border: 1px solid rgba($color-green-muted, 0.3);
+        box-shadow: 0 8px 30px rgba($color-background, 0.35);
 
         animation: backInDown;
         animation-duration: 1.57s;
 
-        > a {
+        > a.logo-link {
+            position: relative;
+            z-index: 1;
             width: auto;
+            flex-shrink: 0;
             text-decoration: none;
 
             &:hover{
@@ -24,19 +38,23 @@ header {
             }
 
             img {
-                height: 55px;
+                height: 40px;
+                display: block;
             }
         }
 
         div {
-            width: 79%;
+            position: relative;
+            z-index: 1;
+            flex: 1;
+            display: flex;
+            justify-content: center;
 
             &.material-icons-round:hover {
                 display: block !important;
             }
 
             @media (max-width: $breakpoint-mobile) {
-                // position: relative;
                 width: 100%;
             }
 
@@ -48,10 +66,11 @@ header {
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
-                justify-content: flex-end;
+                justify-content: center;
                 align-items: center;
                 margin: 0;
                 padding: 0;
+                gap: 4px;
 
                 @media (max-width: $breakpoint-mobile) {
                     display: none;
@@ -66,25 +85,25 @@ header {
 
                 li {
                     position: relative;
-                    margin: 0 5px;
+                    margin: 0;
                     list-style: none;
-
-                    @media (max-width: $breakpoint-mobile) {
-                        margin: 0;
-                    }
 
                     a {
                         width: 100%;
                         display: flex;
                         align-items: center;
-                        padding: 12px 15px;
+                        padding: 8px 16px;
                         text-decoration: none;
-                        text-transform: uppercase;
-                        color: $text-color;
-                        font-weight: normal;
+                        text-transform: none;
+                        font-size: 15px;
+                        color: rgba($text-color, 0.75);
+                        font-weight: 500;
+                        border-radius: 999px;
+                        transition: color 0.2s ease, background-color 0.2s ease;
 
                         &:hover {
-                            color: $color-primary;
+                            color: $text-color;
+                            background-color: rgba($text-color, 0.08);
                         }
 
                         span {
@@ -107,7 +126,8 @@ header {
                         position: absolute;
                         top: 45px;
                         padding: 10px 0;
-                        border-radius: 5px;
+                        border-radius: 12px;
+                        background-color: $color-secondary;
                         box-shadow: 10px 10px 51px -13px rgba(0, 0, 0, 0.75);
                         z-index: 1;
 
@@ -142,20 +162,36 @@ header {
         }
 
         .fale {
-            color: $text-color;
-            text-transform: uppercase;
-            border-radius: 20px;
-            border: $text-color solid 1px;
-            padding: 10px 21px;
+            position: relative;
+            z-index: 1;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            color: $color-background;
+            background-color: $color-primary;
+            text-transform: none;
+            font-weight: 700;
+            border-radius: 999px;
+            border: none;
+            padding: 10px 22px;
+            text-decoration: none;
+            transition: background-color 0.25s ease, transform 0.25s ease;
 
             &:hover {
-                color: $color-primary;
-                border-color: $color-primary;
+                background-color: $color-hover;
+                transform: translateY(-1px);
+            }
+
+            &:focus-visible {
+                outline: 2px solid $text-color;
+                outline-offset: 3px;
             }
         }
 
         .menu-mobile {
-            color: $color-primary;
+            position: relative;
+            z-index: 1;
+            color: $text-color;
             font-weight: bold !important;
 
             @media (min-width: $breakpoint-mobile + 1) {
@@ -179,18 +215,28 @@ header {
         display: block !important;
         /* Mostra o menu quando ativo */
         width: 100vw;
-        background: $color-secondary;
+        background: rgba($color-green-muted, 0.12);
+        backdrop-filter: blur(24px) saturate(120%);
+        -webkit-backdrop-filter: blur(24px) saturate(120%);
+        border: 1px solid rgba($color-green-muted, 0.3);
         list-style: none;
         padding: 0;
         margin: 0;
         position: absolute;
-        top: 140px;
+        top: 90px;
         left: 0;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 24px;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
         z-index: 10;
 
+        ul {
+            display: flex !important;
+            flex-direction: column;
+            width: 100%;
+        }
+
         li {
-            background: $color-secondary;
+            background: transparent;
         }
     }
 
