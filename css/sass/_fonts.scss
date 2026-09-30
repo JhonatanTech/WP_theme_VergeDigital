@@ -13,13 +13,14 @@
 
 // Subconjunto só com os ícones usados no tema (1,6 KB, contra 400 KB do OTF
 // completo), gerado com fontTools. Ícone novo = gerar o subset de novo com o
-// nome dele na lista. "block" porque, sem a fonte, o ícone apareceria como
-// texto ("arrow_outward") durante o carregamento.
+// nome dele na lista. "swap" (pedido do Lighthouse): o texto da ligadura
+// ("arrow_outward") que apareceria até a fonte chegar fica recortado em 1em
+// pelo .material-icons-round abaixo, e a fonte é pré-carregada (functions.php).
 @font-face {
     font-family: "Material Icons Round";
     font-style: normal;
     src: url(./../fonts/MaterialIconsRound-subset.woff2) format("woff2");
-    font-display: block;
+    font-display: swap;
 }
 
 $text-small: 14px;
@@ -41,6 +42,9 @@ $text-xxxl: 52px;
     word-wrap: normal;
     white-space: nowrap;
     direction: ltr;
+    // Esconde o texto da ligadura durante o "swap": o ícone ocupa 1em.
+    width: 1em;
+    overflow: hidden;
 }
 
 body {

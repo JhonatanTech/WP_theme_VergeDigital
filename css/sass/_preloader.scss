@@ -14,7 +14,7 @@
     // Só opacity (animação composta, na GPU). Transicionar "visibility"
     // fazia o Lighthouse acusar animação não composta; o script em
     // header.php põe display:none depois que o fade termina.
-    transition: opacity 0.5s ease;
+    transition: opacity 0.3s ease;
 
     &__logo {
         width: 72px;

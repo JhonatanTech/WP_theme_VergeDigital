@@ -37,7 +37,7 @@ add_action('wp_enqueue_scripts', 'vergedigital_scripts');
 
 // <model-viewer> (logo 3D do hero): o script (255 KB) + o logo.glb (291 KB)
 // eram o caminho crítico mais longo da home. Agora só começam a baixar depois
-// do "load" — o preloader some no mesmo momento e o 3D aparece logo em seguida.
+// do "load", fora do caminho crítico; o 3D aparece logo em seguida.
 function vergedigital_model_viewer_deferred()
 {
     if (!is_front_page()) {
@@ -69,13 +69,20 @@ function vergedigital_async_styles($tag, $handle)
 }
 add_filter('style_loader_tag', 'vergedigital_async_styles', 10, 2);
 
-// Pré-carrega a fonte principal: sem isso o navegador só descobre o arquivo
-// depois de baixar e ler o style.css (mais um degrau na cadeia de requisições).
+// Pré-carrega as fontes (texto e ícones): sem isso o navegador só descobre os
+// arquivos depois de baixar e ler o style.css (mais um degrau na cadeia de
+// requisições — o fontello era o fim da cadeia crítica no Lighthouse).
 function vergedigital_preload_font()
 {
-    $font = get_stylesheet_directory_uri() . '/fonts/Rethink_Sans/RethinkSans-VariableFont_wght.woff2';
-    echo '<link rel="preload" href="' . esc_url($font) . '" as="font" type="font/woff2" crossorigin>' . "
-";
+    $dir = get_stylesheet_directory_uri() . '/fonts/';
+    $fonts = array(
+        'Rethink_Sans/RethinkSans-VariableFont_wght.woff2',
+        'MaterialIconsRound-subset.woff2',
+        'fontello/font/fontello.woff2',
+    );
+    foreach ($fonts as $font) {
+        echo '<link rel="preload" href="' . esc_url($dir . $font) . '" as="font" type="font/woff2" crossorigin>' . "\n";
+    }
 }
 add_action('wp_head', 'vergedigital_preload_font', 1);
 
@@ -102,6 +109,16 @@ function vergedigital_webp_subsizes($formats)
     return $formats;
 }
 add_filter('image_editor_output_format', 'vergedigital_webp_subsizes');
+
+// O script de emojis do WordPress (wp-emoji-release.min.js + CSS inline) só
+// serve para navegadores antigos sem emoji nativo — era JS a mais no carregamento.
+remove_action('wp_head', 'print_emoji_detection_script', 7);
+remove_action('wp_print_styles', 'print_emoji_styles');
+remove_action('admin_print_scripts', 'print_emoji_detection_script');
+remove_action('admin_print_styles', 'print_emoji_styles');
+remove_filter('the_content_feed', 'wp_staticize_emoji');
+remove_filter('comment_text_rss', 'wp_staticize_emoji');
+remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
 
 function register_my_menus()
 {

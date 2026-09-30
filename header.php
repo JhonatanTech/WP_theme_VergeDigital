@@ -35,8 +35,9 @@
     <!-- Tela de carregamento: preta, logo girando no meio. Propositalmente
          independente do GSAP (CSS puro + este script isolado) — se o GSAP
          não carregar do CDN por algum motivo, a tela preta ainda some
-         sozinha (no "load" da página, com um timeout de segurança de 4s
-         pra nunca travar preso). -->
+         sozinha. Some assim que o HTML é lido (DOMContentLoaded), sem
+         esperar imagens e o 3D: esperar o "load" atrasava o LCP e o Speed
+         Index no Lighthouse. Timeout de segurança de 2,5s. -->
     <div id="preloader" class="preloader" aria-hidden="true">
         <img class="preloader__logo" src="<?php echo get_stylesheet_directory_uri(); ?>/img/logo.svg" alt="" width="70" height="70" fetchpriority="high">
     </div>
@@ -51,12 +52,16 @@
                 done = true;
                 pre.classList.add('is-hidden');
                 window.dispatchEvent(new CustomEvent('preloaderhidden'));
-                // Tira do layout depois do fade (0,5s no CSS).
-                setTimeout(function () { pre.style.display = 'none'; }, 500);
+                // Tira do layout depois do fade (0,3s no CSS).
+                setTimeout(function () { pre.style.display = 'none'; }, 300);
             }
 
-            window.addEventListener('load', hide);
-            setTimeout(hide, 4000);
+            if (document.readyState !== 'loading') {
+                hide();
+            } else {
+                document.addEventListener('DOMContentLoaded', hide);
+            }
+            setTimeout(hide, 2500);
         })();
     </script>
 

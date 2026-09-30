@@ -3,7 +3,7 @@
 <section class="about">
     <div class="content container">
         <div class="text">
-            <img class="slogan" src="<?php echo get_stylesheet_directory_uri(); ?>/img/slogan.svg" alt="Caneca com código" width="501" height="196">
+            <img class="slogan" src="<?php echo get_stylesheet_directory_uri(); ?>/img/slogan.svg" alt="Do papel ao pixel" width="501" height="196" fetchpriority="high" decoding="async">
 
             <model-viewer class="mobile" src="<?php echo get_stylesheet_directory_uri(); ?>/img/logo.glb" alt="Logo da Vergê Digital em 3D" auto-rotate rotation-per-second="30deg" camera-controls touch-action="pan-y" interaction-prompt="none" disable-zoom disable-pan loading="eager"></model-viewer>
 

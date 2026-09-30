@@ -140,6 +140,8 @@ footer {
 
                 img {
                     width: 100%;
+                    // Mantém a proporção: o <img> tem width/height no HTML (CLS).
+                    height: auto;
                 }
 
                 &:hover {
