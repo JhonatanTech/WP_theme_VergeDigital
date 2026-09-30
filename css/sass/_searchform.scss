@@ -1,11 +1,12 @@
 @use 'variables'as *;
+@use 'mixins' as *;
 
 .search-header {
     width: 100%;
     padding: 10px 0;
     background: $color-primary;
 
-    @media (max-width: $breakpoint-mobile) {
+    @include mobile {
         background: $color-background;
         padding: 0;
     }
@@ -19,7 +20,7 @@
         justify-content: center;
         margin: 0 auto;
 
-        @media (max-width: $breakpoint-mobile) {
+        @include mobile {
             width: 100%;
             padding-bottom: 0;
             margin-top: 20px;
@@ -39,12 +40,12 @@
             &::placeholder {
                 color: $color-secondary;
 
-                @media (max-width: $breakpoint-mobile) {
+                @include mobile {
                     color: $color-primary;
                 }
             }
 
-            @media (max-width: $breakpoint-mobile) {
+            @include mobile {
                 width: calc(100% - 45px);
                 color: $color-primary;
                 border-bottom: 2px solid $color-primary !important;
@@ -60,8 +61,16 @@
             color: $color-secondary;
             background-color: transparent;
             border: none;
+            cursor: pointer;
+            transition: opacity 0.25s ease;
 
-            @media (max-width: $breakpoint-mobile) {
+            &:hover {
+                opacity: 0.7;
+            }
+
+            @include focus-ring;
+
+            @include mobile {
                 color: $color-primary;
             }
         }

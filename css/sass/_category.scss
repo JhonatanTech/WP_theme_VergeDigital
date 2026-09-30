@@ -1,4 +1,5 @@
 @use 'variables'as *;
+@use 'mixins' as *;
 
 div.category {
 
@@ -6,14 +7,21 @@ div.category {
     .header-category {
         display: flex !important;
         justify-content: space-between;
-        margin: 72px auto;
+        align-items: center;
+        margin: $space-7 auto;
+
+        @include mobile {
+            margin: $space-3 auto $space-7 auto;
+        }
 
         h1 {
             color: $text-color;
-
-            font-weight: normal;
             text-align: left;
             margin-top: 0;
+
+            @include mobile {
+                margin-bottom: $space-6;
+            }
         }
 
         .category-buttons {
@@ -24,8 +32,7 @@ div.category {
             align-content: flex-start;
             width: 100%;
             max-width: 500px;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: $space-1;
 
             a {
                 display: inline-block;
@@ -33,11 +40,13 @@ div.category {
                 border: 2px solid $text-color;
                 border-radius: 999px;
                 color: $text-color;
-                text-transform: uppercase;
                 font-weight: bold;
+                cursor: pointer;
 
                 text-decoration: none;
                 transition: all 0.3s ease;
+
+                @include focus-ring;
 
                 &:hover {
                     background-color: $color-category-green;
@@ -100,8 +109,7 @@ div.category {
 
     .container {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        /* 3 colunas iguais */
+        grid-template-columns: repeat(3, 1fr);
         gap: 0;
 
         animation: backInUp;
@@ -111,113 +119,46 @@ div.category {
             animation: backInLeft;
             animation-duration: 1.55s;
 
-            @media (max-width: $breakpoint-mobile) {
+            @include mobile {
                 flex-direction: column;
             }
         }
 
-        @media (max-width: $breakpoint-mobile) {
+        @include tablet {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include mobile {
             grid-template-columns: repeat(1, 1fr);
-            /* 1 colunas iguais */
         }
 
         .post {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
+            display: block;
+            position: relative;
             overflow: hidden;
             aspect-ratio: 1 / 1;
+            margin: 0;
 
-            h2 {
-                margin-bottom: 30px;
-
-                color: $text-color;
+            &::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(270deg, $color-gray-dark 0, $color-gray-darker 100%);
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                pointer-events: none;
             }
 
-            @media (max-width: $breakpoint-mobile) {
-                width: 100%;
-                margin: 0 0 20px 0;
-            }
-
-            &:hover {
-                background: linear-gradient(270deg, $color-gray-dark 0, $color-gray-darker 100%) !important;
+            &:hover::after {
+                opacity: 0.75;
             }
 
             img {
+                display: block;
                 width: 100%;
-                background-repeat: no-repeat;
-                background-attachment: fixed;
-                background-size: cover;
+                height: 100%;
                 object-fit: cover;
                 object-position: center;
-            }
-
-            .preview {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                padding: 0 10px 10px;
-
-                p {
-
-                    line-height: 120%;
-                }
-
-                .date {
-                    display: none;
-                    align-items: center;
-                    width: 50%;
-                    color: $color-primary;
-
-                    line-height: 18px;
-                    font-style: italic;
-                    margin: 5px 0 0 0;
-                    text-align: center;
-                    justify-content: center;
-
-                    span {
-
-                        margin-right: 3px;
-                    }
-                }
-
-                h3 {
-                    width: 100%;
-                    color: $text-color;
-
-                    text-transform: capitalize;
-                    text-align: start;
-                    margin: 10px auto;
-                    font-weight: bold;
-                    display: -webkit-box;
-                    -webkit-line-clamp: 2;
-                    overflow: hidden;
-                    -webkit-box-orient: vertical;
-                }
-
-                p {
-                    display: -webkit-box;
-                    -webkit-line-clamp: 3;
-                    overflow: hidden;
-                    -webkit-box-orient: vertical;
-                    font-weight: normal;
-                    margin: 0;
-                }
-
-                a {
-                    display: flex;
-                    align-items: center;
-                    color: $color-primary;
-
-                    font-weight: bold;
-                    text-decoration: none;
-                    text-align: center;
-
-                    span {
-
-                        margin-left: 15px;
-                    }
-                }
             }
         }
     }
@@ -226,38 +167,23 @@ div.category {
 .orcar {
     a {
         display: flex;
-        max-width: 316px;
-        width: 100%;
-        color: $text-color-secondary;
-        background-color: $color-primary;
-        border-radius: 50px;
+        width: fit-content;
         padding: 20px 24px;
-        margin: 0 auto;
-        text-transform: uppercase;
+        margin: $space-5 auto 0 auto;
         text-decoration: none;
         font-weight: 600;
         align-items: center;
         justify-content: center;
         gap: 0.3rem;
-        transition: background-color 0.25s ease, transform 0.25s ease;
+        @include glow-button;
 
-        @media (max-width: $breakpoint-mobile) {
+        @include mobile {
             max-width: 261px;
         }
 
         span {
 
             font-weight: bold;
-        }
-
-        &:hover {
-            background-color: $color-hover;
-            transform: translateY(-2px);
-        }
-
-        &:focus-visible {
-            outline: 2px solid $text-color;
-            outline-offset: 3px;
         }
     }
 }

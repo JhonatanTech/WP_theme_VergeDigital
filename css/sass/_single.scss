@@ -1,9 +1,18 @@
+@use 'fonts' as *;
 @use 'variables' as *;
+@use 'mixins' as *;
+
+// O vermelho padrão do editor (#cf2e2e) fica abaixo de 4.5:1 sobre o fundo
+// preto. Clareamos o preset só no conteúdo do post, assim o destaque em
+// vermelho escolhido no editor continua funcionando.
+.single .content {
+    --wp--preset--color--vivid-red: #ff5c5c;
+}
 
 .single hr {
     animation: backInRight;
     animation-duration: 1.58s;
-    margin: 50px 0;
+    margin: $space-6 0;
 }
 
 
@@ -12,7 +21,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin: 30px 0 0 0;
+    margin: $space-4 0 0 0;
 
     animation: backInLeft;
     animation-duration: 1.55s;
@@ -36,7 +45,7 @@
             border-radius: 10px;
             filter: grayscale(1) brightness(.25);
 
-            @media (max-width: $breakpoint-mobile) {
+            @include mobile {
                 height: auto;
             }
         }
@@ -55,7 +64,7 @@
     
 
     p {
-        margin: 20px 0 0 0;
+        margin: $space-3 0 0 0;
     }
 
     .date,
@@ -65,9 +74,9 @@
         align-items: center;
         justify-content: center;
         width: 50%;
-        margin: 0 0 30px 0;
+        margin: 0 0 $space-4 0;
 
-        @media (max-width: $breakpoint-mobile) {
+        @include mobile {
             width: 50%;
         }
 
@@ -89,7 +98,7 @@
     flex-direction: column;
     align-items: flex-start;
 
-    @media (max-width: $breakpoint-mobile) {
+    @include mobile {
         bottom: 10px;
         right: 10px;
         z-index: 999;
@@ -97,7 +106,7 @@
     }
 
     li {
-        margin: 15px 0;
+        margin: $space-2 0;
 
         a {
             span {
@@ -108,7 +117,7 @@
                 border-radius: 50%;
                 border: $color-gray-dark 3px solid;
 
-                @media (max-width: $breakpoint-mobile) {
+                @include mobile {
                     margin: 0;
                 }
 
@@ -120,27 +129,23 @@
 .pagina-sobre {
 
     .sobre {
-        margin-bottom: 961px;
+        margin-bottom: $space-9;
 
         animation: backInUp;
         animation-duration: 1.59s;
 
-        @media screen and (max-width: $breakpoint-tablet) {
-            margin: 50px 0;
+        @include tablet {
+            margin-bottom: $space-6;
         }
 
         h2 {
-            font-weight: normal;
-            background-image: linear-gradient(to right, $text-color, $color-primary);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin: 100px auto 80px auto;
+            @include gradient-text;
+            margin: $space-9 auto $space-8 auto;
             max-width: 1000px;
             text-align: center;
 
-            @media screen and (max-width: $breakpoint-tablet) {
-                margin: 60px 0;
+            @include tablet {
+                margin: $space-7 0;
             }
         }
 
@@ -148,70 +153,55 @@
             color: $text-color;
             max-width: 900px;
             text-align: center;
-            margin: 0 auto 82px auto;
+            margin: 0 auto $space-8 auto;
 
-            @media screen and (max-width: $breakpoint-tablet) {
-                margin: 0 auto 60px auto;
+            @include tablet {
+                margin: 0 auto $space-7 auto;
             }
         }
 
         a {
             display: flex;
             justify-content: center;
-            width: 234px;
-            color: $text-color-secondary;
-            background-color: $text-color;
-            border-radius: 50px;
-            padding: 20px 24px;
+            width: max-content;
+            padding: $space-3 $space-3;
             margin: 0 auto;
-            text-transform: uppercase;
             text-decoration: none;
             font-weight: 600;
             align-items: center;
             gap: 0.3rem;
-            transition: background-color 0.25s ease, transform 0.25s ease;
+            @include glow-button;
 
             span {
                 font-weight: bold;
-            }
-
-            &:hover {
-                background-color: $color-primary;
-                transform: translateY(-2px);
-            }
-
-            &:focus-visible {
-                outline: 2px solid $color-primary;
-                outline-offset: 3px;
             }
         }
     }
 
     .servicos {
-        padding: 80px 20px;
+        padding: $space-8 $space-3;
         color: $text-color;
 
-        @media screen and (max-width: $breakpoint-tablet) {
+        @include tablet {
             padding: 0;
-            margin-bottom: 50px;
+            margin-bottom: $space-6;
         }
 
         &__titulo {
             text-align: left;
-            font-weight: 600;
         }
 
         &__grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            grid-gap: 43px;
-            row-gap: 43px;
-            margin-top: 140px;
+            grid-gap: $space-5;
+            row-gap: $space-5;
+            margin-top: $space-4;
 
-            @media screen and (max-width: $breakpoint-tablet) {
+            @include tablet {
                 display: flex;
                 flex-wrap: wrap;
-                row-gap: 100px;
+                row-gap: $space-9;
             }
         }
     }
@@ -229,7 +219,7 @@
         align-items: center;
         transition: 0.3s;
 
-        @media screen and (max-width: $breakpoint-tablet) {
+        @include tablet {
             width: 100%;
         }
 
@@ -246,13 +236,96 @@
             }
         }
 
+        // Cada serviço reflete a cor da sua categoria correspondente
+        // (mesma paleta usada nos filtros da página de categoria), pra
+        // reforçar visualmente a ligação entre as duas páginas.
+        &:nth-child(1):hover {
+            border-color: $color-category-orange;
+
+            h3 {
+                color: $color-category-orange;
+            }
+
+            img {
+                filter: drop-shadow(0px 8px 16px $color-category-orange);
+            }
+
+            .servico-box__action {
+                background-color: $color-category-orange;
+            }
+        }
+
+        &:nth-child(2):hover {
+            border-color: $color-category-yellow;
+
+            h3 {
+                color: $color-category-yellow;
+            }
+
+            img {
+                filter: drop-shadow(0px 8px 16px $color-category-yellow);
+            }
+
+            .servico-box__action {
+                background-color: $color-category-yellow;
+            }
+        }
+
+        &:nth-child(3):hover {
+            border-color: $color-category-purple;
+
+            h3 {
+                color: $color-category-purple;
+            }
+
+            img {
+                filter: drop-shadow(0px 8px 16px $color-category-purple);
+            }
+
+            .servico-box__action {
+                background-color: $color-category-purple;
+            }
+        }
+
+        &:nth-child(4):hover {
+            border-color: $color-category-blue;
+
+            h3 {
+                color: $color-category-blue;
+            }
+
+            img {
+                filter: drop-shadow(0px 8px 16px $color-category-blue);
+            }
+
+            .servico-box__action {
+                background-color: $color-category-blue;
+            }
+        }
+
+        &:nth-child(5):hover {
+            border-color: $color-category-pink;
+
+            h3 {
+                color: $color-category-pink;
+            }
+
+            img {
+                filter: drop-shadow(0px 8px 16px $color-category-pink);
+            }
+
+            .servico-box__action {
+                background-color: $color-category-pink;
+            }
+        }
+
         &:nth-child(4) {
             grid-column: span 2;
 
             .servico-box__conteudo {
                 width: 50%;
 
-                @media screen and (max-width: $breakpoint-tablet) {
+                @include tablet {
                     width: 100%;
                 }
             }
@@ -260,7 +333,7 @@
             .servico-box__mockup {
                 width: 50%;
 
-                @media screen and (max-width: $breakpoint-tablet) {
+                @include tablet {
                     width: 100%;
                 }
 
@@ -273,7 +346,7 @@
         &__icone {
             position: absolute;
             top: -11%;
-            margin-bottom: 15px;
+            margin-bottom: $space-2;
 
             img {
                 height: 145px;
@@ -283,11 +356,10 @@
 
         &__conteudo {
             flex: 1;
-            margin-top: 60px;
+            margin-top: $space-7;
 
             h3 {
-                font-weight: bold;
-                margin-bottom: 10px;
+                margin-bottom: $space-2;
                 text-align: left !important;
             }
 
@@ -309,14 +381,18 @@
             background-color: $color-gray-medium;
             color: $text-color-secondary;
             border-radius: 50%;
+
+            span {
+                font-size: $text-xl;
+            }
         }
     }
 
     .essencia {
-        padding: 80px 20px;
+        padding: $space-8 $space-3 $space-4 $space-3;
 
-        @media screen and (max-width: 900px) {
-            padding: 50px 20px;
+        @include tablet {
+            padding: $space-6 $space-3;
         }
     }
 
@@ -334,7 +410,7 @@
 
     .essencia__texto h2 {
         font-weight: 400;
-        margin-bottom: 20px;
+        margin-bottom: $space-2;
         text-align: left;
     }
 
@@ -354,9 +430,9 @@
         justify-content: center;
         align-items: center;
         min-width: 400px;
-        margin-top: 30px;
+        margin-top: $space-4;
 
-        @media screen and (max-width: $breakpoint-tablet) {
+        @include tablet {
             min-width: auto;
             width: 100%;
         }

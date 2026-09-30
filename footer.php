@@ -1,3 +1,5 @@
+</main>
+
 <footer>
     <div class="footer-card container">
         <div class="footer-card__top">
@@ -33,9 +35,12 @@
 <a href="https://wa.me/message/THVPRTFBOLWFE1" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco pelo WhatsApp"><i class="icon-whatsapp"></i></a>
 
 <script>
+    // Slick só é carregado na home (functions.php); nas outras páginas não
+    // há carrossel e .slick() nem existe.
+    if (window.jQuery && jQuery.fn.slick) {
     jQuery(document).ready(function($) {
         jQuery('.slick-clientes').slick({
-            slidesToShow: 1,
+            slidesToShow: 4,
             slidesToScroll: 1,
             autoplay: true,
             autoplaySpeed: 2000,
@@ -51,7 +56,7 @@
                 {
                     breakpoint: 768,
                     settings: {
-                        slidesToShow: 1
+                        slidesToShow: 2
                     }
                 },
                 {
@@ -65,10 +70,13 @@
     });
 
     if (window.innerWidth <= 768) {
+        // 1 card por vez (não 1.2): com o "espiar" do próximo card, o
+        // texto dele aparecia cortado no meio da palavra, sem nenhum
+        // tratamento visual — parecia quebrado.
         $('.lista').slick({
-            slidesToShow: 1.2,
+            slidesToShow: 1,
             arrows: false,
-            dots: false,
+            dots: true,
             infinite: false
         });
     }
@@ -91,6 +99,7 @@
         slickInitIfMobile(); // on load
         $(window).on('resize', slickInitIfMobile); // on resize
     });
+    }
 </script>
 </body>
 

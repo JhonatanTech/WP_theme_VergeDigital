@@ -1,4 +1,6 @@
+@use 'fonts' as *;
 @use 'variables' as *;
+@use 'mixins' as *;
 
 .pagination {
     display: flex;
@@ -6,7 +8,7 @@
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: $space-4;
 
     a {
         display: flex;
@@ -36,7 +38,10 @@ footer {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    padding: 40px 0 30px;
+    margin-top: 96px;
+    background:
+            radial-gradient(ellipse 80% 65% at 50% 130%, rgba($color-primary, 0.55), transparent 60%),
+            $color-background;
 
     .footer-card {
         position: relative;
@@ -45,16 +50,12 @@ footer {
         min-height: 460px;
         display: flex;
         flex-direction: column;
-        border-radius: 32px;
-        padding: 48px 48px 0;
-        background:
-            radial-gradient(ellipse 80% 65% at 50% 130%, rgba($color-primary, 0.55), transparent 60%),
-            $color-background;
+        padding: $space-9 0 0 0;
 
-        @media (max-width: $breakpoint-mobile) {
+        @include mobile {
             min-height: 360px;
             border-radius: 24px;
-            padding: 36px 24px 0;
+            padding: $space-4 $space-3 0;
         }
 
         &__top {
@@ -65,9 +66,9 @@ footer {
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: flex-start;
-            gap: 24px;
+            gap: $space-3;
 
-            @media (max-width: $breakpoint-mobile) {
+            @include mobile {
                 flex-direction: column;
             }
         }
@@ -75,12 +76,12 @@ footer {
         &__nav {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: $space-1;
 
             a {
                 color: $text-color;
                 text-decoration: none;
-                font-size: 18px;
+                font-size: $text-base;
                 font-weight: 600;
                 transition: color 0.2s ease;
 
@@ -94,16 +95,16 @@ footer {
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            gap: 8px;
+            gap: $space-1;
 
-            @media (max-width: $breakpoint-mobile) {
+            @include mobile {
                 align-items: flex-start;
             }
 
             p {
                 margin: 0;
                 color: rgba($text-color, 0.7);
-                font-size: 14px;
+                font-size: $text-small;
 
                 a {
                     color: inherit;
@@ -123,7 +124,7 @@ footer {
         &__social {
             display: flex;
             flex-direction: row;
-            gap: 12px;
+            gap: $space-1;
             margin: 0 0 4px 0;
             padding: 0;
             list-style: none;
@@ -135,12 +136,10 @@ footer {
                 width: 34px;
                 height: 34px;
                 border-radius: 50%;
-                border: 1px solid rgba($text-color, 0.35);
                 transition: border-color 0.2s ease, transform 0.2s ease;
 
                 img {
-                    height: 15px;
-                    width: 15px;
+                    width: 100%;
                 }
 
                 &:hover {
@@ -178,9 +177,9 @@ footer {
 }
 
 .copyright {
-    margin: 24px 0 0 0;
-    color: $color-gray-medium;
-    font-size: 14px;
+    margin: $space-3 0;
+    color: $text-color-subtle;
+    font-size: $text-small;
     font-weight: 600;
     text-align: center;
 }
@@ -196,7 +195,25 @@ footer {
     border: $color-primary solid 2px;
     padding: 10px;
     text-decoration: none;
+    cursor: pointer;
     transition: color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
+
+    // No mobile esse botão cai bem em cima do 2º CTA do hero ("Peça seu
+    // orçamento" — que já é um link de WhatsApp). Some enquanto o hero
+    // está visível (classe ligada/desligada via ScrollTrigger em
+    // js/animations.js, initHero). !important de propósito: a entrada/
+    // pulso do botão mexe no opacity dele via estilo inline (GSAP), e um
+    // ScrollTrigger.refresh() (disparado em vários pontos da página)
+    // re-renderiza esses tweens por cima de qualquer coisa que a gente
+    // sete manualmente sem !important — só assim a classe vence sempre.
+    @include mobile {
+        &.is-behind-hero {
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+    }
+
+    @include focus-ring;
 
     i{
         display: flex;
@@ -212,10 +229,7 @@ footer {
         transform: scale(1.08);
     }
 
-    &:focus-visible {
-        outline: 2px solid $text-color;
-        outline-offset: 3px;
-    }
+    @include focus-ring($text-color);
 }
 
 .slick-initialized .slick-slide {

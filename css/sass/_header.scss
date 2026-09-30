@@ -1,4 +1,6 @@
+@use 'fonts' as *;
 @use 'variables' as *;
+@use 'mixins' as *;
 
 header {
     padding: 24px 0;
@@ -6,7 +8,7 @@ header {
     top: 16px;
     z-index: 100;
 
-    nav {
+    nav.container {
         position: relative;
         display: flex;
         flex-direction: row;
@@ -22,28 +24,54 @@ header {
         border: 1px solid rgba($color-green-muted, 0.3);
         box-shadow: 0 8px 30px rgba($color-background, 0.35);
 
-        animation: backInDown;
-        animation-duration: 1.57s;
+        @include mobile {
+            width: 95%;
+            height: 72px;
+            padding: 15px 20px;
+            margin: 0 auto;
+        }
 
-        > a.logo-link {
+        // Entrada e giro do logo no hover agora ficam a cargo do GSAP
+        // (js/animations.js) — dá controle de easing/replay e desliga
+        // sozinho com prefers-reduced-motion.
+
+        // Logo + ícone de menu agrupados no desktop (mesmo espaçamento
+        // pequeno entre os dois). No mobile a logo sai do grupo e vai pro
+        // centro do header — a referência de "position:absolute" dela
+        // passa a ser o próprio <nav> (que é position:relative e cobre a
+        // largura toda), então o grupo não pode mais ficar position:
+        // relative nesse breakpoint.
+        .logo-menu-group {
             position: relative;
             z-index: 1;
-            width: auto;
+            display: flex;
+            align-items: center;
+            gap: 10px;
             flex-shrink: 0;
-            text-decoration: none;
 
-            &:hover{
-                animation: flip;
-                animation-duration: 1.5s;
+            @include mobile {
+                position: static;
+                width: 100%;
+                justify-content: space-between;
             }
 
-            img {
-                height: 40px;
-                display: block;
+            > a.logo-link {
+                width: auto;
+                text-decoration: none;
+
+                img {
+                    height: 40px;
+                    display: block;
+                }
             }
         }
 
-        div {
+        // Seletor genérico pro <div> que o wp_nav_menu() gera (sem classe
+        // própria) — precisa excluir .logo-menu-group explicitamente,
+        // senão esse novo grupo (logo + ícone de menu) também herdava
+        // flex:1 + justify-content:center e quebrava o layout no desktop
+        // (logo empurrada pro meio, links espremidos e quebrando linha).
+        div:not(.logo-menu-group) {
             position: relative;
             z-index: 1;
             flex: 1;
@@ -54,8 +82,15 @@ header {
                 display: block !important;
             }
 
-            @media (max-width: $breakpoint-mobile) {
+            @include mobile {
                 width: 100%;
+                // Sem isso, o .menu.active (position:absolute; left:0)
+                // usa ESTE div como referência — e como ele é só um item
+                // flex no meio do header (depois do grupo logo+hambúrguer),
+                // "left:0" ficava deslocado pra direita, cortando o painel
+                // do menu. "static" devolve a referência pro <nav> (que já
+                // é position:relative e cobre a largura toda).
+                position: static;
             }
 
             ul.show {
@@ -72,14 +107,14 @@ header {
                 padding: 0;
                 gap: 4px;
 
-                @media (max-width: $breakpoint-mobile) {
+                @include mobile {
                     display: none;
                     width: 100%;
                     padding: 0;
                     flex-direction: column;
                     flex-wrap: wrap;
                     align-items: flex-start;
-                    margin-bottom: 30px;
+                    margin-bottom: $space-4;
                     overflow: hidden;
                 }
 
@@ -95,7 +130,7 @@ header {
                         padding: 8px 16px;
                         text-decoration: none;
                         text-transform: none;
-                        font-size: 15px;
+                        font-size: $text-base;
                         color: rgba($text-color, 0.75);
                         font-weight: 500;
                         border-radius: 999px;
@@ -131,7 +166,7 @@ header {
                         box-shadow: 10px 10px 51px -13px rgba(0, 0, 0, 0.75);
                         z-index: 1;
 
-                        @media (max-width: $breakpoint-mobile) {
+                        @include mobile {
                             width: 100%;
                             display: block !important;
                             position: relative;
@@ -152,7 +187,7 @@ header {
                             top: -10px;
                             left: 25px;
 
-                            @media (max-width: $breakpoint-mobile) {
+                            @include mobile {
                                 display: none;
                             }
                         }
@@ -167,41 +202,38 @@ header {
             flex-shrink: 0;
             display: flex;
             align-items: center;
-            color: $color-background;
-            background-color: $color-primary;
-            text-transform: none;
             font-weight: 700;
-            border-radius: 999px;
-            border: none;
             padding: 10px 22px;
             text-decoration: none;
-            transition: background-color 0.25s ease, transform 0.25s ease;
+            @include glow-button;
 
             &:hover {
-                background-color: $color-hover;
                 transform: translateY(-1px);
             }
 
-            &:focus-visible {
-                outline: 2px solid $text-color;
-                outline-offset: 3px;
+            // Some do header no mobile — o botão flutuante do WhatsApp
+            // (mesmo link, .whatsapp-float no footer.php) já cumpre esse
+            // papel lá, sem disputar espaço com a logo centralizada.
+            @include mobile {
+                display: none;
             }
+
         }
 
         .menu-mobile {
             position: relative;
             z-index: 1;
-            color: $text-color;
+            color: $color-primary;
             font-weight: bold !important;
 
-            @media (min-width: $breakpoint-mobile + 1) {
+            @include desktop {
                 display: none !important;
             }
         }
     }
 }
 
-@media (max-width: $breakpoint-mobile) {
+@include mobile {
     .menu {
         display: none;
         /* Oculta o menu por padrão */
@@ -214,8 +246,15 @@ header {
     .menu.active {
         display: block !important;
         /* Mostra o menu quando ativo */
-        width: 100vw;
-        background: rgba($color-green-muted, 0.12);
+        // "100%" (não "100vw"): agora que a referência de posição é o
+        // <nav>, "vw" podia passar da largura real dele e desalinhar de
+        // novo.
+        width: 100%;
+        // Fundo bem mais opaco que o pill do header (0.12 lá funciona
+        // porque é fino) — aqui o painel é alto e cobria boa parte do
+        // hero (moeda, título grande) atrás, brigando com o texto do
+        // menu. Quase sólido garante contraste de leitura.
+        background: rgba($color-background, 0.94);
         backdrop-filter: blur(24px) saturate(120%);
         -webkit-backdrop-filter: blur(24px) saturate(120%);
         border: 1px solid rgba($color-green-muted, 0.3);

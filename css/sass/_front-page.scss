@@ -1,10 +1,17 @@
-@use 'variables' as *;
+@use 'fonts' as *;
+@use 'variables'as *;
+@use 'mixins'as *;
 
 .about {
     display: flex;
+    align-items: center;
+    min-height: 100vh;
+    min-height: 100dvh;
+    box-sizing: border-box;
 
-    @media (max-width: $breakpoint-mobile) {
+    @include mobile {
         height: auto;
+        min-height: auto;
         padding-bottom: 0;
     }
 
@@ -13,46 +20,66 @@
         justify-content: space-between;
         align-items: flex-start;
 
-        @media (max-width: $breakpoint-mobile) {
+        @include mobile {
             justify-content: space-between;
             flex-direction: column;
             flex-wrap: nowrap;
         }
 
         video,
-        img {
-            width: 40%;
+        img,
+        model-viewer {
+            width: 30%;
             height: auto;
             pointer-events: none;
 
-            animation: backInLeft;
-            animation-duration: 1.55s;
-
-            @media (max-width: $breakpoint-mobile) {
+            @include mobile {
                 width: 100%;
                 height: auto;
                 margin: 0 auto 30px auto;
             }
         }
 
+        // <model-viewer> não tem dimensão intrínseca como video/img, então
+        // "height: auto" sozinho colapsaria pra 0 — aspect-ratio resolve.
+        // --poster-color transparente evita um flash de fundo claro
+        // enquanto o modelo 3D carrega. pointer-events volta a "auto": o
+        // vídeo/img são só decorativos (por isso "none" no bloco acima),
+        // mas o desktop tem camera-controls e precisa receber o mouse pra
+        // girar — sem isso o pointer-events:none do bloco geral bloquearia
+        // o arrastar por completo.
+        model-viewer {
+            aspect-ratio: 1;
+            --poster-color: transparent;
+            pointer-events: auto;
+
+            @include desktop {
+                cursor: grab;
+
+                &:active {
+                    cursor: grabbing;
+                }
+            }
+        }
+
         .text {
             width: 50%;
 
-            animation: backInRight;
-            animation-duration: 1.56s;
+            // Entrada do texto/CTA agora é feita pelo GSAP (js/animations.js),
+            // com SplitText no parágrafo e stagger nos botões.
 
-            @media (max-width: $breakpoint-mobile) {
+            @include mobile {
                 width: 100%;
             }
 
             .slogan {
                 width: 100%;
                 max-width: 500px;
-                margin: 0 0 80px 0;
+                margin: 0 0 $space-8 0;
 
-                @media (max-width: $breakpoint-mobile) {
+                @include mobile {
                     width: 70%;
-                    margin-bottom: 20px;
+                    margin-bottom: $space-3;
                 }
             }
 
@@ -72,66 +99,39 @@
                 width: fit-content;
             }
 
+            .cta-group {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: $space-4;
+                margin-top: $space-3;
+
+                @include mobile {
+                    gap: $space-2;
+                }
+            }
+
             .primary {
                 display: inline-block;
-                background-color: $color-primary;
-                color: $text-color-secondary;
-                text-transform: uppercase;
                 text-decoration: none;
-                padding: 12px 22px;
-                border-radius: 50px;
-                margin: 15px 0 0 0;
+                padding: 13px 24px;
                 font-weight: bold;
-                border: 2px solid $color-primary;
-                transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+                @include glow-button;
 
                 span {
                     font-weight: bold;
-                }
-
-                &:hover {
-                    background-color: $color-hover;
-                    border-color: $color-hover;
-                    transform: translateY(-2px);
-                }
-
-                &:focus-visible {
-                    outline: 2px solid $text-color;
-                    outline-offset: 3px;
                 }
             }
 
             .secundary {
                 display: inline-block;
-                background-color: transparent;
-                color: $text-color;
-                text-transform: uppercase;
                 text-decoration: none;
-                padding: 11px 21px;
-                border-radius: 50px;
-                margin: 25px 0 22px 0;
+                padding: 12px 23px;
                 font-weight: bold;
-                border: $text-color solid 1px;
-                transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
-
-                @media (max-width: $breakpoint-mobile) {
-                    margin-bottom: 5px;
-                }
+                @include outline-button;
 
                 span {
                     font-weight: bold;
-                }
-
-                &:hover {
-                    background-color: $color-primary;
-                    color: $text-color-secondary;
-                    border-color: $color-primary;
-                    transform: translateY(-2px);
-                }
-
-                &:focus-visible {
-                    outline: 2px solid $color-primary;
-                    outline-offset: 3px;
                 }
             }
         }
@@ -142,8 +142,8 @@
     width: 100%;
     padding: 0;
 
-    @media (max-width: $breakpoint-mobile) {
-        margin: 50px 0;
+    @include mobile {
+        margin: $space-6 0;
     }
 
     img {
@@ -152,32 +152,37 @@
 }
 
 .servicos {
-    padding-top: 0;
-    padding-bottom: 50px;
+    padding-top: $space-9;
+    padding-bottom: $space-9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    min-height: 100dvh;
+    box-sizing: border-box;
+
+    @include mobile {
+        padding-top: $space-6;
+        padding-bottom: $space-6;
+        min-height: auto;
+    }
 
     .container {
-        border-top: $text-color 1px solid;
-
-        @media (max-width: $breakpoint-mobile) {
+        @include mobile {
             border: none;
         }
 
         .text {
             h2 {
-                font-weight: normal;
                 text-align: left;
 
-                @media (max-width: $breakpoint-mobile) {
+                @include mobile {
                     margin: 0;
                 }
 
                 >strong {
                     color: $color-primary;
-                    font-weight: normal;
-                    background-image: linear-gradient(to right, $color-gray-medium, $color-primary);
-                    background-clip: text;
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
+                    @include gradient-text($color-gray-medium, $color-primary);
                 }
             }
 
@@ -193,110 +198,195 @@
 
         .lista {
             display: flex;
-            padding: 150px 0 2rem 0;
+            gap: $space-3;
+            padding: $space-4 0 $space-4 0;
             list-style: none;
 
-            @media (max-width: $breakpoint-mobile) {
+            @include mobile {
                 padding: 0 0;
-                margin-top: 50px;
+                margin-top: $space-6;
                 margin-bottom: 0;
+                gap: 0;
+            }
+
+            // O tema do Slick (CDN) desenha os dots em preto por padrão —
+            // some no fundo escuro. Só entram quando o Slick vira carrossel
+            // no mobile (slidesToShow:1, ver footer.php).
+            //
+            // O <li> do dot fica dentro de .lista igual aos <li> dos
+            // cards, então herdaria o estilo de card (fundo, padding,
+            // borda arredondada...) se não fosse resetado explicitamente
+            // aqui — por isso o reset é tão extenso.
+            .slick-dots {
+                display: flex !important;
+                justify-content: center;
+                align-items: center;
+                gap: $space-1;
+                margin-top: $space-3;
+                padding: 0;
+                list-style: none;
+
+                li {
+                    width: auto;
+                    height: auto;
+                    margin: 0;
+                    padding: 0;
+                    background: none;
+                    border-radius: 0;
+                    box-shadow: none;
+                    position: static;
+                    display: block;
+                    transform: none;
+                    transition: none;
+
+                    button {
+                        width: 8px;
+                        height: 8px;
+                        padding: 0;
+
+                        &:before {
+                            width: 8px;
+                            height: 8px;
+                            font-size: 8px;
+                            line-height: 8px;
+                            color: rgba($text-color, 0.4);
+                            opacity: 1;
+                        }
+                    }
+
+                    &.slick-active button:before {
+                        color: $color-primary;
+                    }
+                }
             }
 
             li {
                 background: $color-secondary;
-                width: calc(100%/5);
+                width: calc((100% - #{$space-3 * 4}) / 5);
                 border-radius: 20px;
-                padding: 33px;
+                padding: $space-3;
                 color: $text-color;
                 position: relative;
                 box-shadow: 0 8px 35px rgba(0, 0, 0);
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
+                transform: scale(1);
+                transition: transform 0.3s ease;
 
-                @media (max-width: $breakpoint-mobile) {
+                @include mobile {
                     box-shadow: none;
                 }
 
                 &:hover {
-                    z-index: 9999 !important;
-                    transform: scale(1.35) !important;
+                    z-index: 10 !important;
+                    transform: scale(1.1) !important;
 
-                    @media (max-width: $breakpoint-mobile) {
+                    @include mobile {
                         transform: scale(1) !important;
                     }
-
-                    h3,
-                    a {
-                        color: $color-primary;
-                    }
                 }
 
-                // 1º e 5º itens (camada mais baixa)
-                &:nth-child(1),
-                &:nth-child(5) {
-                    z-index: 1;
-                    transform: scale(1);
-                }
-
-                // 2º e 4º itens (camada intermediária)
-                &:nth-child(2),
-                &:nth-child(4) {
-                    z-index: 2;
-                    transform: scale(1.15);
-                }
-
-                // 3º item (centro — destaque principal)
-                &:nth-child(3) {
-                    z-index: 3;
-                    transform: scale(1.3);
-                }
-
-                @media (max-width: $breakpoint-mobile) {
-                    transform: scale(1) !important;
-                    margin-right: 15px;
-                }
-
-                &.destaque h3 span {
-                    color: $color-hover;
+                @include mobile {
+                    margin-right: $space-2;
                 }
 
                 img {
                     width: calc(100% - 24px);
+                    // Sem isso, o atributo height="467" do <img> fixa a altura
+                    // e a imagem estica ao ter a largura reduzida.
+                    height: auto;
                     margin: 0 auto;
                 }
 
                 h3 {
-                    font-weight: bold;
                     text-align: left;
-                    margin: 14px 0 5px 0;
+                    margin: $space-2 0 $space-1 0;
 
-                    @media (max-width: $breakpoint-mobile) {
-                        color: $color-primary;
-                        margin: 14px 0 15px 0;
-                    }
-
-                    span {
-                        color: $color-primary;
+                    @include mobile {
+                        margin: $space-2 0 $space-2 0;
                     }
                 }
 
                 p {
                     font-weight: normal;
                     color: $text-color;
-                    margin: 0 0 15px 0;
+                    margin: 0 0 $space-2 0;
 
-                    @media (max-width: $breakpoint-mobile) { }
+                    @include mobile {}
                 }
 
                 a {
-                    text-transform: uppercase;
-                    font-weight: bold;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: $space-1;
+                    align-self: flex-start;
+                    max-width: 100%;
                     text-decoration: none;
-                    font-size: 16px;
+                    font-size: $text-base;
+                    font-weight: 600;
+                    padding: $space-1 $space-2;
 
                     span {
+                        flex-shrink: 0;
                         font-weight: bold;
+                    }
+                }
+
+                // Cada área de serviço usa a cor da sua categoria de marca.
+                // Classe fixa em vez de :nth-child: no mobile o Slick envolve
+                // cada <li> no próprio wrapper (.slick-slide > div > li), o
+                // que faz todo item virar filho único do seu pai — ou seja,
+                // TODOS batem em :nth-child(1) e ficam com a mesma cor (bug
+                // visto em produção). Classe no <li> não depende de posição
+                // de irmão, então sobrevive à reestruturação do carrossel.
+                &.servico-identidade-visual {
+                    h3 {
+                        color: $color-category-orange;
+                    }
+
+                    a {
+                        @include glow-button($text: $color-category-orange, $glow: $color-category-orange, $hover-bg: $color-category-orange);
+                    }
+                }
+
+                &.servico-editorial {
+                    h3 {
+                        color: $color-category-purple;
+                    }
+
+                    a {
+                        @include glow-button($text: $color-category-purple, $glow: $color-category-purple, $hover-bg: $color-category-purple);
+                    }
+                }
+
+                &.servico-design-grafico {
+                    h3 {
+                        color: $color-category-yellow;
+                    }
+
+                    a {
+                        @include glow-button($text: $color-category-yellow, $glow: $color-category-yellow, $hover-bg: $color-category-yellow);
+                    }
+                }
+
+                &.servico-sites {
+                    h3 {
+                        color: $color-category-blue;
+                    }
+
+                    a {
+                        @include glow-button($text: $color-category-blue, $glow: $color-category-blue, $hover-bg: $color-category-blue);
+                    }
+                }
+
+                &.servico-social-media {
+                    h3 {
+                        color: $color-category-pink;
+                    }
+
+                    a {
+                        @include glow-button($text: $color-category-pink, $glow: $color-category-pink, $hover-bg: $color-category-pink);
                     }
                 }
             }
@@ -307,11 +397,12 @@
 
 .posts {
     background-color: $color-background;
-    border-radius: 50px;
     padding: 0;
+    margin: 0;
 
-    @media (max-width: $breakpoint-mobile) {
+    @include mobile {
         border-radius: 0;
+        margin: $space-6 0 0 0;
     }
 
     .container {
@@ -321,103 +412,89 @@
         flex-direction: row;
         flex-wrap: wrap;
         align-items: flex-start;
-        gap: 20px;
-        border-top: $text-color 1px solid;
-        padding-top: 80px;
+        padding: $space-9 0 $space-10 0;
+        margin-bottom: $space-9;
 
-        @media (max-width: $breakpoint-mobile) {
+        // No celular vira coluna: título → grade de posts → "ver mais"
+        // (o botão vem antes no HTML, então a ordem é definida com "order").
+        @include mobile {
+            flex-direction: column;
+            align-items: stretch;
+            flex-wrap: nowrap;
             border-top: none;
-            margin-bottom: 45px;
-            padding-top: 0;
+            margin-bottom: $space-2;
+            padding: $space-4 20px 0 20px;
         }
 
         h2 {
             width: auto;
-            font-weight: normal;
             color: $text-color;
             text-align: start;
-            margin: 0 0 20px 0;
+            margin: 0 0 $space-2 0;
 
-            @media (max-width: $breakpoint-mobile) { }
+            @include mobile {
+                order: 1;
+            }
 
             >strong {
                 color: $color-primary;
-                font-weight: normal;
-                background-image: linear-gradient(to right, $color-secondary, $color-primary);
-                background-clip: text;
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
+                @include gradient-text($color-secondary, $color-primary);
             }
         }
 
         >a {
-            line-height: 24px;
+            display: inline-flex;
+            align-items: center;
+            // Sem line-height próprio: com 24px ele ficava com 46px de
+            // altura contra 36-39px dos outros botões (mesmo padding,
+            // mesma fonte) — o line-height padrão iguala com o resto.
             font-weight: bold;
-            text-transform: uppercase;
             text-decoration: none;
-            color: $text-color;
-            border: $text-color 1px solid;
-            border-radius: 50px;
             padding: 10px 20px;
-            transition: border-color 0.25s ease, color 0.25s ease;
+            @include glow-button;
 
-            @media (max-width: $breakpoint-mobile) {
-                position: absolute;
-                bottom: -65px;
-                padding: 7px 16px;
-                left: 50%;
-                transform: translate(-50%, -50%);
+            // No fluxo normal (sem position: absolute), centralizado abaixo
+            // da grade. Sem padding aqui para não sobrescrever o do glow-button.
+            @include mobile {
+                order: 3;
+                align-self: center;
+                margin-top: $space-7;
             }
 
             span {
-                display: inline-flex;
-                background-color: $color-primary;
-                border-radius: 50%;
-                color: $color-background;
                 font-weight: bold;
-                padding: 13px;
                 margin-left: 5px;
-                transition: transform 0.25s ease;
-
-                @media (max-width: $breakpoint-mobile) {
-                    padding: 6px;
-                }
-            }
-
-            &:hover {
-                border-color: $color-primary;
-                color: $color-primary;
-
-                span {
-                    transform: rotate(45deg);
-                }
-            }
-
-            &:focus-visible {
-                outline: 2px solid $color-primary;
-                outline-offset: 3px;
             }
         }
 
+        // O .container é flex em linha: sem largura explícita a grade
+        // encolhe pro tamanho intrínseco das imagens (que muda conforme o
+        // srcset/densidade do aparelho) e não ocupa a linha toda no celular.
         .posts {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            /* 3 colunas iguais */
-            gap: 31px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            width: 100%;
+            flex: 0 0 100%;
+            gap: 0;
+            margin-top: 22px;
 
-            @media (max-width: $breakpoint-mobile) {
-                grid-template-columns: repeat(1, 1fr);
-                gap: 0;
+            @include tablet {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            @include mobile {
+                order: 2;
+                flex: 0 0 auto;
+                grid-template-columns: minmax(0, 1fr);
+                margin-top: $space-2;
             }
 
             .post {
                 position: relative;
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
+                display: block;
                 overflow: hidden;
-                border-radius: 20px;
-                aspect-ratio: 1 / .682;
+                aspect-ratio: 1 / 1;
+                margin: 0;
 
                 &.seuprojeto {
                     a {
@@ -427,13 +504,12 @@
                         justify-content: center;
                         align-items: center;
                         border: $color-gray-light solid 1px;
-                        border-radius: 20px;
                         color: $color-gray-light;
                         width: 100%;
                         height: 100%;
                         text-decoration: none;
 
-                        @media (max-width: $breakpoint-mobile) {
+                        @include mobile {
                             display: flex;
                             border: $color-gray-light solid 2px;
                         }
@@ -448,18 +524,8 @@
                         font-size: 80px;
                         text-decoration: none;
 
-                        @media (max-width: $breakpoint-mobile) { }
+                        @include mobile {}
                     }
-                }
-
-                h2 {
-                    margin-bottom: 30px;
-                    color: $text-color;
-                }
-
-                @media (max-width: $breakpoint-mobile) {
-                    width: 100%;
-                    margin: 0 0 20px 0;
                 }
 
                 &:hover {
@@ -473,15 +539,13 @@
                 }
 
                 img {
+                    display: block;
                     width: 100%;
                     height: 100%;
-                    background-repeat: no-repeat;
-                    background-attachment: fixed;
-                    background-size: cover;
                     object-fit: cover;
                     object-position: center;
-                    margin-bottom: 5px;
                     filter: grayscale(0) brightness(1);
+                    transition: filter 0.3s ease;
                 }
 
                 .preview {
@@ -519,7 +583,6 @@
                         color: $text-color;
                         text-align: start;
                         margin: 10px auto;
-                        font-weight: bold;
                         display: -webkit-box;
                         -webkit-line-clamp: 2;
                         overflow: hidden;
@@ -556,26 +619,45 @@
 .clientes {
     padding-top: 0;
 
-    @media (max-width: $breakpoint-mobile) {
+    @include mobile {
         padding: 0;
-        padding-top: 50px;
+        padding-top: $space-6;
     }
 
     h2 {
-        font-weight: bold;
-        text-transform: uppercase;
         text-align: left;
         border-bottom: 2px solid $text-color;
-        padding-bottom: 28px;
-        margin-bottom: 90px;
+        padding-bottom: $space-3;
+        margin-bottom: $space-9;
 
-        @media (max-width: $breakpoint-mobile) {
+        @include mobile {
             border: none;
-            text-transform: none;
-            font-weight: 400;
             padding: 0;
             margin: 0;
-            padding-bottom: 20px;
+            padding-bottom: $space-3;
+        }
+    }
+
+    .slick-clientes {
+        .cliente {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            padding: 0 24px;
+        }
+
+        img {
+            max-height: 56px;
+            width: auto;
+            max-width: 100%;
+            filter: grayscale(1);
+            opacity: 0.7;
+            transition: filter 0.25s ease, opacity 0.25s ease;
+
+            &:hover {
+                filter: grayscale(0);
+                opacity: 1;
+            }
         }
     }
 }
@@ -590,7 +672,7 @@
     display: flex !important;
     align-items: center;
 
-    @media (max-width: $breakpoint-mobile) {
+    @include mobile {
         display: block !important;
     }
 }

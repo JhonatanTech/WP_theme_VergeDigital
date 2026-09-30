@@ -1,4 +1,5 @@
 @use 'variables'as *;
+@use 'mixins' as *;
 
 *::-webkit-scrollbar {
     width: 12px;
@@ -29,17 +30,17 @@ body {
 
 body.home {
     background: $color-background no-repeat;
-    background-image: url('./../img/background.svg');
+    background-image: url('./../img/background.webp');
 }
 
 .pagina-sobre {
     background: $color-background no-repeat center center;
-    background-image: url(./../img/background-sobre.svg);
+    background-image: url(./../img/background-sobre.webp);
     background-size: cover;
     background-position: top;
     background-repeat: no-repeat;
 
-    @media screen and (max-width: $breakpoint-tablet) {
+    @include tablet {
         background-image: none;
     }
 }
@@ -49,7 +50,7 @@ body.home {
     width: 100%;
     margin: 0 auto;
 
-    @media screen and (max-width: $breakpoint-tablet) {
+    @include tablet {
         width: 100%;
         padding: 0 20px;
         margin: 0;
@@ -57,7 +58,7 @@ body.home {
 }
 
 hr.container{
-    @media screen and (max-width: $breakpoint-tablet) {
+    @include tablet {
         padding: 0;
     }
 }
@@ -67,10 +68,9 @@ a {
 }
 
 section {
-    padding: 60px 0;
 
-    @media screen and (max-width: $breakpoint-tablet) {
-        padding: 50px 0;
+    @include tablet {
+        padding: $section-padding-mobile 0;
     }
 }
 
@@ -94,10 +94,24 @@ code {
     font-family: monospace;
 }
 
+// Keeps a label readable to screen readers/autofill without showing it
+// visually — used on form fields styled by their placeholder instead.
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 .mobile {
     display: none !important;
 
-    @media screen and (max-width: $breakpoint-tablet) {
+    @include tablet {
         display: block !important;
     }
 }
@@ -105,7 +119,7 @@ code {
 .desktop {
     display: block !important;
 
-    @media screen and (max-width: $breakpoint-tablet) {
+    @include tablet {
         display: none !important;
     }
 }

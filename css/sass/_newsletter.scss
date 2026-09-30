@@ -1,4 +1,6 @@
+@use 'fonts' as *;
 @use 'variables' as *;
+@use 'mixins' as *;
 
 .newsletter {
     width: 100%;
@@ -7,26 +9,26 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        padding: 54px 44px;
+        padding: $space-6 $space-5;
         border-radius: 50px;
 
-        background-image: url('./../img/background-newsletter.svg');
+        background-image: url('./../img/background-newsletter.webp');
         background-repeat: no-repeat;
         background-size: cover;
         /* Faz a imagem cobrir toda a área */
         background-position: center;
         /* Centraliza a imagem */
 
-        @media (max-width: $breakpoint-mobile) {
+        @include mobile {
             flex-direction: column;
             border-radius: 0;
-            padding: 50px 44px;
+            padding: $space-6 $space-5;
         }
 
         >div {
             width: 50%;
 
-            @media (max-width: $breakpoint-mobile) {
+            @include mobile {
                 width: 100%;
             }
         }
@@ -38,14 +40,11 @@
 
             h3 {
                 font-weight: normal;
-                background-image: linear-gradient(to right, $text-color, $color-primary);
-                background-clip: text;
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                margin-bottom: 10px;
-                font-size: 34px;
+                @include gradient-text;
+                margin-bottom: $space-2;
+                font-size: $text-xl;
 
-                @media (max-width: $breakpoint-mobile) {
+                @include mobile {
                     margin: 0;
                 }
             }
@@ -53,21 +52,21 @@
             > ul {
                 display: flex;
                 flex-direction: row;
-                gap: 18px;
+                gap: $space-2;
                 width: 100%;
                 padding: 0;
 
-                @media (max-width: $breakpoint-mobile) {
+                @include mobile {
                     padding: 0;
                     justify-content: center;
-                    margin: 20px 0;
+                    margin: $space-3 0;
                 }
 
                 li {
                     width: 40px;
                     height: 40px;
 
-                    @media (max-width: $breakpoint-mobile) {
+                    @include mobile {
                         width: 35px;
                         height: 35px;
                     }
@@ -89,51 +88,27 @@
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(12px);
             border-radius: 22px;
-            padding: 55px;
+            padding: $space-6;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
             max-width: 585px;
 
-            @media (max-width: $breakpoint-mobile) {
+            @include mobile {
                 display: block !important;
-                padding: 20px;
+                padding: $space-3;
             }
 
             h3 {
-                font-weight: 700;
                 text-transform: uppercase;
 
-                @media (max-width: $breakpoint-mobile) {
-                    margin: 0 0 20px 0;
+                @include mobile {
+                    margin: 0 0 $space-3 0;
                 }
             }
 
             p {
-                @media (max-width: $breakpoint-mobile) {
-                    margin: 0 0 20px 0;
-                }
-            }
-
-            .tags {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 8px;
-                margin-bottom: 57px;
-
-                @media (max-width: $breakpoint-mobile) {
-                    margin-bottom: 50px;
-                }
-
-                .tag {
-                    padding: 9px 11px;
-                    text-transform: uppercase;
-
-                    color: $text-color;
-                    border: $text-color solid 1px;
-                    border-radius: 50px;
-
-                    @media (max-width: $breakpoint-mobile) { }
+                @include mobile {
+                    margin: 0 0 $space-3 0;
                 }
             }
 
@@ -141,76 +116,95 @@
                 display: flex;
                 flex-direction: column;
                 flex-wrap: wrap;
-                gap: 44px;
+                gap: $space-5;
 
-                @media (max-width: $breakpoint-mobile) {
-                    gap: 50px;
+                @include mobile {
+                    gap: $space-6;
+                }
+
+                fieldset {
+                    // Reset the browser's default fieldset chrome —
+                    // it's used here purely for grouping semantics.
+                    border: none;
+                    margin: 0;
+                    padding: 0;
+                    min-width: 0;
+                }
+
+                legend {
+                    width: 100%;
+                    padding: 0;
+                    margin-bottom: $space-2;
+                    color: $text-color;
+                }
+
+                .tags,
+                .checkbox-group {
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    gap: $space-1;
+
+                    .tag {
+                        @include chip-toggle;
+                    }
+                }
+
+                .tags {
+                    margin-bottom: $space-1;
+                }
+
+                .field {
+                    width: 100%;
                 }
 
                 input,
                 textarea {
-
                     line-height: 36px;
                     width: 100%;
                     background-color: transparent;
                     border: none;
                     border-bottom: 2px solid $text-color;
                     color: $text-color;
+                    transition: border-color 0.2s ease;
 
-                    @media (max-width: $breakpoint-mobile) { }
-                }
-
-                .checkbox-group {
-                    display: flex;
-                    flex-direction: row;
-                    flex-wrap: wrap;
-                    gap: 20px;
-
-                    >label {
-                        width: 100%;
-
-                        @media (max-width: $breakpoint-mobile) { }
-                    }
-
-                    >div {
-                        display: flex;
-                        flex-direction: row;
-                        flex-wrap: nowrap;
-                        align-items: center;
-                        gap: 10px;
-                        width: auto;
-
-                        input {
-                            width: 13px;
-                            height: 13px;
-                        }
-                    }
-                }
-
-                button {
-                    display: block;
-                    background-color: $color-primary;
-                    border-radius: 50px;
-
-                    font-weight: bold;
-                    color: $color-background;
-                    padding: 14px 0;
-                    text-align: center;
-                    border: none;
-                    cursor: pointer;
-                    transition: background-color 0.25s ease, transform 0.25s ease;
-
-                    @media (max-width: $breakpoint-mobile) { }
-
-                    &:hover {
-                        background-color: $color-hover;
-                        transform: translateY(-2px);
+                    &::placeholder {
+                        color: rgba($text-color, 0.6);
                     }
 
                     &:focus-visible {
-                        outline: 2px solid $text-color;
-                        outline-offset: 3px;
+                        outline: none;
+                        border-color: $color-primary;
                     }
+
+                    &:user-invalid {
+                        border-color: $color-category-orange;
+                    }
+                }
+
+                textarea {
+                    line-height: 1.5;
+                    padding-top: 8px;
+                }
+
+                .form-privacy {
+                    font-size: $text-small;
+                    font-weight: normal;
+                    color: rgba($text-color, 0.6);
+                    margin: 0;
+                }
+
+                button {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: $space-1;
+                    font-weight: bold;
+                    padding: 14px 0;
+                    text-align: center;
+                    @include glow-button;
+
+                    @include mobile { }
                 }
             }
         }
