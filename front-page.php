@@ -178,17 +178,20 @@
             <h3>CONTATO</h3>
 
             <!--
-                Formulário estático (sem action/method) — precisa de um plugin
-                para de fato enviar e-mail. Os campos já têm "name" prontos
-                para o Contact Form 7: nome, email, telefone, mensagem,
-                interesse, contato_preferido[].
+                Ao enviar, o script abaixo monta a mensagem com os campos e abre
+                o WhatsApp do estúdio (não há envio de e-mail no servidor).
+                toolname/tooldescription/toolparamdescription: WebMCP declarativo,
+                para agentes de IA usarem o formulário como uma ferramenta
+                (auditoria "Navegação agêntica" do Lighthouse).
             -->
-            <form>
+            <form id="contato-form" data-whatsapp="<?php echo esc_url(vergedigital_whatsapp()); ?>"
+                toolname="solicitar_orcamento"
+                tooldescription="Pede um orçamento à Vergê Digital, estúdio de design e programação. Monta uma mensagem com os dados informados e devolve o link do WhatsApp do estúdio com a mensagem pronta para envio.">
                 <fieldset class="tags">
                     <legend>Eu busco por...</legend>
 
                     <label class="tag">
-                        <input type="radio" name="interesse" value="Identidade visual" checked>
+                        <input type="radio" name="interesse" value="Identidade visual" checked toolparamdescription="Serviço de interesse: Identidade visual, Webdesign & Programação, Social media, Design gráfico ou Design editorial.">
                         <span>Identidade visual</span>
                     </label>
                     <label class="tag">
@@ -219,17 +222,17 @@
                 </div>
                 <div class="field">
                     <label class="visually-hidden" for="contato-telefone">Seu telefone</label>
-                    <input type="tel" id="contato-telefone" name="telefone" placeholder="+00 00 0000-0000" autocomplete="tel" required>
+                    <input type="tel" id="contato-telefone" name="telefone" placeholder="+00 00 0000-0000" autocomplete="tel" required toolparamdescription="Telefone com DDI e DDD, por exemplo +55 11 91234-5678.">
                 </div>
                 <div class="field">
                     <label class="visually-hidden" for="contato-mensagem">Sua mensagem</label>
-                    <textarea id="contato-mensagem" name="mensagem" rows="3" placeholder="Nos conte sobre seu projeto" required></textarea>
+                    <textarea id="contato-mensagem" name="mensagem" rows="3" placeholder="Nos conte sobre seu projeto" required toolparamdescription="Descrição do projeto: o que precisa, prazo e qualquer referência."></textarea>
                 </div>
 
                 <fieldset class="checkbox-group">
                     <legend>Prefiro receber minha proposta por:</legend>
                     <label class="tag">
-                        <input type="checkbox" name="contato_preferido[]" value="WhatsApp">
+                        <input type="checkbox" name="contato_preferido[]" value="WhatsApp" toolparamdescription="Canais preferidos para receber a proposta: WhatsApp e/ou E-mail.">
                         <span>WhatsApp</span>
                     </label>
                     <label class="tag">
@@ -238,13 +241,52 @@
                     </label>
                 </fieldset>
 
-                <p class="form-privacy">Seus dados são usados só para retornarmos seu contato — nada de spam.</p>
+                <p class="form-privacy">Ao enviar, abrimos o WhatsApp com sua mensagem pronta. Seus dados são usados só para retornarmos seu contato — nada de spam.</p>
 
                 <button class="submit-btn" type="submit">
                     Enviar
                     <span class="material-icons-round">arrow_outward</span>
                 </button>
             </form>
+            <script>
+                (function () {
+                    var form = document.getElementById('contato-form');
+                    if (!form) return;
+
+                    // Monta a mensagem a partir dos campos e devolve o link do WhatsApp.
+                    function montarLink() {
+                        var dados = new FormData(form);
+                        var canais = dados.getAll('contato_preferido[]');
+                        var linhas = [
+                            'Olá, Vergê! Vim pelo formulário de contato do site.',
+                            '',
+                            'Interesse: ' + (dados.get('interesse') || '—'),
+                            'Nome: ' + (dados.get('nome') || '—'),
+                            'E-mail: ' + (dados.get('email') || '—'),
+                            'Telefone: ' + (dados.get('telefone') || '—'),
+                            'Prefiro receber a proposta por: ' + (canais.length ? canais.join(' e ') : '—'),
+                            '',
+                            dados.get('mensagem') || ''
+                        ];
+                        return form.dataset.whatsapp + '&text=' + encodeURIComponent(linhas.join('\n'));
+                    }
+
+                    form.addEventListener('submit', function (event) {
+                        event.preventDefault();
+                        var link = montarLink();
+
+                        // Chamado por um agente de IA (WebMCP): devolve o link em vez de abrir.
+                        if (event.agentInvoked && typeof event.respondWith === 'function') {
+                            event.respondWith(Promise.resolve(
+                                'Mensagem pronta. Para concluir o pedido de orçamento, abra este link do WhatsApp da Vergê Digital e envie a mensagem: ' + link
+                            ));
+                            return;
+                        }
+
+                        window.open(link, '_blank', 'noopener');
+                    });
+                })();
+            </script>
         </div>
     </div>
 </section>

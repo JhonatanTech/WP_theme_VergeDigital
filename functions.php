@@ -300,6 +300,91 @@ function vergedigital_whatsapp($mensagem = '', $numero = '5511974554227')
     return $url;
 }
 
+// llms.txt: resumo do site em Markdown para agentes e modelos de IA (auditoria
+// "Navegação agêntica" do Lighthouse). O arquivo precisa estar na raiz do
+// domínio, fora do tema — então é gerado aqui quando /llms.txt é pedido, e
+// fica sempre em dia com os serviços e projetos publicados.
+function vergedigital_llms_txt()
+{
+    $caminho = wp_parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
+    $base = rtrim((string) wp_parse_url(home_url('/'), PHP_URL_PATH), '/');
+    if ($caminho !== $base . '/llms.txt') {
+        return;
+    }
+
+    // Uma linha de Markdown: remove tags, marcadores de idioma do plugin de
+    // tradução ("[pt]", "[:en]", "[:]") e quebras que quebrariam a lista.
+    $limpar = function ($texto) {
+        $texto = preg_replace('/\[:?[a-z]{0,2}\]/i', ' ', wp_strip_all_tags((string) $texto));
+        return trim(preg_replace('/\s+/', ' ', $texto));
+    };
+
+    $linhas = array(
+        '# Vergê Digital',
+        '',
+        '> Estúdio criativo brasileiro que une design e programação: identidade visual, design editorial, design gráfico, sites e social media para marcas e negócios.',
+        '',
+        'A Vergê Digital nasceu em 2025, formada por amigos criativos que se complementam entre design e desenvolvimento. Atende pedidos de orçamento pelo WhatsApp e mostra o portfólio organizado por área de serviço.',
+        '',
+        '## Serviços',
+        '',
+    );
+
+    $servicos = array(
+        'identidade-visual' => 'O primeiro passo da marca: logo, cores e diretrizes para um reconhecimento visual sólido.',
+        'editorial'         => 'Livros, revistas, catálogos e apresentações com conteúdo visual bem estruturado.',
+        'design-grafico'    => 'Materiais visuais para impressão ou digital, com identidade e profissionalismo.',
+        'sites'             => 'Sites e plataformas funcionais, responsivas e impactantes (webdesign e programação).',
+        'social-media'      => 'Posts, templates e identidade digital para engajar o público nas redes.',
+    );
+    foreach ($servicos as $slug => $descricao) {
+        $categoria = get_category_by_slug($slug);
+        if ($categoria) {
+            $linhas[] = '- [' . $categoria->name . '](' . get_category_link($categoria) . '): ' . $descricao;
+        }
+    }
+
+    $linhas[] = '';
+    $linhas[] = '## Páginas';
+    $linhas[] = '';
+    $linhas[] = '- [Início](' . home_url('/') . '): apresentação do estúdio, serviços, projetos em destaque e formulário de contato.';
+    $sobre = get_page_by_path('sobre');
+    if ($sobre) {
+        $linhas[] = '- [Sobre](' . get_permalink($sobre) . '): história, essência e serviços do estúdio.';
+    }
+    $todos = get_category_by_slug('todos');
+    if ($todos) {
+        $linhas[] = '- [Portfólio completo](' . get_category_link($todos) . '): todos os projetos publicados.';
+    }
+
+    $projetos = get_posts(array('numberposts' => 30, 'orderby' => 'date', 'order' => 'DESC'));
+    if ($projetos) {
+        $linhas[] = '';
+        $linhas[] = '## Projetos';
+        $linhas[] = '';
+        foreach ($projetos as $projeto) {
+            $resumo = $limpar(get_the_excerpt($projeto));
+            $linhas[] = '- [' . $limpar(get_the_title($projeto)) . '](' . get_permalink($projeto) . ')' . ($resumo !== '' ? ': ' . wp_trim_words($resumo, 30, '…') : '');
+        }
+    }
+
+    $linhas[] = '';
+    $linhas[] = '## Contato';
+    $linhas[] = '';
+    $linhas[] = '- [WhatsApp](' . vergedigital_whatsapp('Olá, Vergê! Gostaria de pedir um orçamento.') . '): canal principal para orçamentos (+55 11 97455-4227).';
+    $linhas[] = '- [Instagram](https://www.instagram.com/vergedigital_/): trabalhos recentes e bastidores.';
+    $linhas[] = '- [Behance](https://www.behance.net/vergedigital_): estudos de caso completos.';
+    $linhas[] = '';
+
+    status_header(200);
+    header('Content-Type: text/plain; charset=utf-8');
+    header('Cache-Control: public, max-age=3600');
+    header('X-Robots-Tag: noindex');
+    echo implode("\n", $linhas);
+    exit;
+}
+add_action('init', 'vergedigital_llms_txt', 1);
+
 // Verificação de propriedade do site no Google Search Console.
 function vergedigital_google_site_verification()
 {

@@ -35,14 +35,18 @@
             </div>
         <?php endif; ?>
 
-        <form class="briefing__form" method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+        <!-- toolname/tooldescription: WebMCP declarativo — agentes de IA podem
+             preencher o briefing como uma ferramenta, usando os rótulos dos campos. -->
+        <form class="briefing__form" method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>"
+            toolname="enviar_briefing_site"
+            tooldescription="Envia à Vergê Digital o briefing de um novo site: dados de contato, objetivos, público, páginas, conteúdo e referências de design. Os campos obrigatórios estão marcados como required.">
             <input type="hidden" name="action" value="vergedigital_briefing">
             <input type="hidden" name="redirect" value="<?php echo esc_url(get_permalink()); ?>">
             <?php wp_nonce_field('vergedigital_briefing', 'briefing_nonce', false); ?>
 
             <div class="briefing__hp" aria-hidden="true">
                 <label for="briefing-site-url">Não preencha</label>
-                <input type="text" id="briefing-site-url" name="site_url" tabindex="-1" autocomplete="off">
+                <input type="text" id="briefing-site-url" name="site_url" tabindex="-1" autocomplete="off" toolparamdescription="Campo anti-spam: deixe sempre vazio.">
             </div>
 
             <p class="briefing__obrigatorio"><span>*</span> Indica uma pergunta obrigatória</p>
