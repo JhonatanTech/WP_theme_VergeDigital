@@ -12,9 +12,10 @@
 <section class="servicos">
     <div class="container">
         <h2 class="servicos__titulo">Nossos serviços</h2>
+        <!-- Cada card é um link para a categoria do serviço no portfólio. -->
         <div class="servicos__grid">
 
-            <div class="servico-box destaque">
+            <a class="servico-box destaque" href="<?php echo esc_url(home_url('/category/identidade-visual/')); ?>">
                 <div class="servico-box__icone">
                     <img src="<?php echo get_template_directory_uri(); ?>/img/identidade.webp" alt="Identidade visual">
                 </div>
@@ -25,9 +26,9 @@
                 <div class="servico-box__action">
                     <span class="material-icons-round">arrow_outward</span>
                 </div>
-            </div>
+            </a>
 
-            <div class="servico-box">
+            <a class="servico-box" href="<?php echo esc_url(home_url('/category/design-grafico/')); ?>">
                 <div class="servico-box__icone">
                     <img src="<?php echo get_template_directory_uri(); ?>/img/grafico.webp" alt="Design gráfico">
                 </div>
@@ -38,9 +39,9 @@
                 <div class="servico-box__action">
                     <span class="material-icons-round">arrow_outward</span>
                 </div>
-            </div>
+            </a>
 
-            <div class="servico-box">
+            <a class="servico-box" href="<?php echo esc_url(home_url('/category/editorial/')); ?>">
                 <div class="servico-box__icone">
                     <img src="<?php echo get_template_directory_uri(); ?>/img/editorial.webp" alt="Design editorial">
                 </div>
@@ -51,9 +52,9 @@
                 <div class="servico-box__action">
                     <span class="material-icons-round">arrow_outward</span>
                 </div>
-            </div>
+            </a>
 
-            <div class="servico-box">
+            <a class="servico-box" href="<?php echo esc_url(home_url('/category/sites/')); ?>">
                 <div class="servico-box__icone">
                     <img src="<?php echo get_template_directory_uri(); ?>/img/webdesign.webp" alt="Webdesign & Programação">
                 </div>
@@ -67,9 +68,9 @@
                 <div class="servico-box__action">
                     <span class="material-icons-round">arrow_outward</span>
                 </div>
-            </div>
+            </a>
 
-            <div class="servico-box">
+            <a class="servico-box" href="<?php echo esc_url(home_url('/category/social-media/')); ?>">
                 <div class="servico-box__icone">
                     <img src="<?php echo get_template_directory_uri(); ?>/img/socialmedia.webp" alt="Social media">
                 </div>
@@ -80,7 +81,7 @@
                 <div class="servico-box__action">
                     <span class="material-icons-round">arrow_outward</span>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
 </section>

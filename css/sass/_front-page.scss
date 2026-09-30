@@ -2,6 +2,37 @@
 @use 'variables'as *;
 @use 'mixins'as *;
 
+// Card de serviço: neutro por padrão (título branco, botão verde) e ganha a
+// cor da sua área só no hover — ou quando algo dentro dele recebe foco pelo
+// teclado, para quem não usa mouse ver o mesmo destaque.
+@mixin servico-cor($cor) {
+    &:hover,
+    &:focus-within {
+        h3 {
+            color: $cor;
+        }
+
+        a {
+            color: $cor;
+            border-color: rgba($cor, 0.45);
+            box-shadow: 0 0 24px rgba($cor, 0.35), 0 0 50px rgba($cor, 0.12);
+
+            @include mobile {
+                box-shadow: 0 0 10px rgba($cor, 0.3);
+            }
+
+            &:hover {
+                background-color: $cor;
+                color: $text-color-secondary;
+                border-color: $cor;
+                box-shadow: 0 0 30px rgba($cor, 0.55), 0 0 70px rgba($cor, 0.2);
+            }
+
+            @include focus-ring($cor);
+        }
+    }
+}
+
 .about {
     display: flex;
     align-items: center;
@@ -300,6 +331,8 @@
 
                 h3 {
                     text-align: left;
+                    color: $text-color;
+                    transition: color 0.25s ease;
                     margin: $space-2 0 $space-1 0;
 
                     @include mobile {
@@ -324,6 +357,7 @@
                     text-decoration: none;
                     font-size: $text-base;
                     font-weight: 600;
+                    @include glow-button;
                     padding: $space-1 $space-2;
 
                     span {
@@ -332,61 +366,27 @@
                     }
                 }
 
-                // Cada área de serviço usa a cor da sua categoria de marca.
+                // Cada área usa a cor da sua categoria de marca, só no hover.
                 // Classe fixa em vez de :nth-child: no mobile o Slick envolve
-                // cada <li> no próprio wrapper (.slick-slide > div > li), o
-                // que faz todo item virar filho único do seu pai — ou seja,
-                // TODOS batem em :nth-child(1) e ficam com a mesma cor (bug
-                // visto em produção). Classe no <li> não depende de posição
-                // de irmão, então sobrevive à reestruturação do carrossel.
+                // cada card num wrapper próprio e todos virariam :nth-child(1).
                 &.servico-identidade-visual {
-                    h3 {
-                        color: $color-category-orange;
-                    }
-
-                    a {
-                        @include glow-button($text: $color-category-orange, $glow: $color-category-orange, $hover-bg: $color-category-orange);
-                    }
+                    @include servico-cor($color-category-orange);
                 }
 
                 &.servico-editorial {
-                    h3 {
-                        color: $color-category-purple;
-                    }
-
-                    a {
-                        @include glow-button($text: $color-category-purple, $glow: $color-category-purple, $hover-bg: $color-category-purple);
-                    }
+                    @include servico-cor($color-category-purple);
                 }
 
                 &.servico-design-grafico {
-                    h3 {
-                        color: $color-category-yellow;
-                    }
-
-                    a {
-                        @include glow-button($text: $color-category-yellow, $glow: $color-category-yellow, $hover-bg: $color-category-yellow);
-                    }
+                    @include servico-cor($color-category-yellow);
                 }
 
                 &.servico-sites {
-                    h3 {
-                        color: $color-category-blue;
-                    }
-
-                    a {
-                        @include glow-button($text: $color-category-blue, $glow: $color-category-blue, $hover-bg: $color-category-blue);
-                    }
+                    @include servico-cor($color-category-blue);
                 }
 
                 &.servico-social-media {
-                    h3 {
-                        color: $color-category-pink;
-                    }
-
-                    a {
-                        @include glow-button($text: $color-category-pink, $glow: $color-category-pink, $hover-bg: $color-category-pink);
-                    }
+                    @include servico-cor($color-category-pink);
                 }
             }
         }
@@ -642,7 +642,10 @@
             display: flex !important;
             align-items: center;
             justify-content: center;
-            padding: 0 24px;
+            // Folga vertical para o "pop" do hover (scale 1.12 + sobe 4px,
+            // em animations.js): o .slick-list tem overflow: hidden e
+            // cortava o topo/base da logo ampliada.
+            padding: $space-2 24px;
         }
 
         img {

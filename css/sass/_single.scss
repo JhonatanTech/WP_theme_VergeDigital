@@ -196,7 +196,7 @@
             grid-template-columns: repeat(3, 1fr);
             grid-gap: $space-5;
             row-gap: $space-5;
-            margin-top: $space-4;
+            margin-top: $space-7;
 
             @include tablet {
                 display: flex;
@@ -207,6 +207,12 @@
     }
 
     .servico-box {
+        // Agora é um <a> (link para a categoria): anula o verde, o
+        // sublinhado e o tamanho de fonte que os links herdam do tema.
+        color: $text-color;
+        text-decoration: none;
+        font-size: inherit;
+        @include focus-ring;
         background: linear-gradient(135deg, $color-black-soft 0%, $color-black-deep 100%);
         padding: 32px;
         border-radius: 12px;
