@@ -1,0 +1,139 @@
+@use 'variables' as *;
+
+@mixin mobile {
+    @media (max-width: $breakpoint-mobile) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media screen and (max-width: $breakpoint-tablet) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: $breakpoint-mobile + 1) {
+        @content;
+    }
+}
+
+@mixin focus-ring($color: $color-primary) {
+    &:focus-visible {
+        outline: 2px solid $color;
+        outline-offset: 3px;
+    }
+}
+
+// Dark pill button with an ambient glow that intensifies on hover,
+// used for every primary call-to-action across the site (on both
+// <button> and <a> tags — the mixin makes their behavior identical).
+@mixin glow-button($bg: $color-black-soft, $text: $color-primary, $glow: $color-primary, $hover-bg: $color-primary, $hover-text: $text-color-secondary) {
+    cursor: pointer;
+    background-color: $bg;
+    color: $text;
+    font-size: 18px;
+    padding: 10px 15px;
+    border-radius: 999px;
+    border: 1px solid rgba($glow, 0.45);
+    box-shadow: 0 0 24px rgba($glow, 0.35), 0 0 50px rgba($glow, 0.12);
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+
+    // No mobile o halo grande (50px) vaza pra fora do botão e domina
+    // visualmente a seção toda (reparado nos cards de serviço, onde só um
+    // aparece por vez no carrossel) — reduz só o alcance do brilho, sem
+    // tirar a cor.
+    @include mobile {
+        box-shadow: 0 0 10px rgba($glow, 0.3);
+    }
+
+    &:hover {
+        background-color: $hover-bg;
+        color: $hover-text;
+        border-color: $hover-bg;
+        box-shadow: 0 0 30px rgba($glow, 0.55), 0 0 70px rgba($glow, 0.2);
+        transform: translateY(-2px);
+    }
+
+    @include focus-ring($glow);
+}
+
+// Transparent pill button with an outlined border, used for secondary
+// calls-to-action alongside a glow-button primary. Same interaction
+// language (lift + focus ring) as glow-button, just without the fill.
+@mixin outline-button($color: $text-color, $hover-text: $text-color-secondary, $focus-color: $color-primary) {
+    cursor: pointer;
+    background-color: transparent;
+    color: $color;
+    font-size: 18px;
+    padding: 10px 15px;
+    border-radius: 999px;
+    border: 1px solid rgba($color, 0.25);
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+
+    &:hover {
+        background-color: $color;
+        color: $hover-text;
+        border-color: $color;
+        box-shadow: 0 0 24px rgba($color, 0.3);
+        transform: translateY(-2px);
+    }
+
+    @include focus-ring($focus-color);
+}
+
+// Gradient-filled heading text, used to highlight a word/phrase within
+// section titles.
+@mixin gradient-text($from: $text-color, $to: $color-primary) {
+    background-image: linear-gradient(to right, $from, $to);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+// Pill-shaped checkbox/radio toggle: the native input is kept in the DOM
+// (so it stays keyboard- and screen-reader-accessible) but visually
+// hidden, while the adjacent <span> is styled as the visible pill and
+// reacts to the input's :checked/:focus-visible state. Wrap it around a
+// label like `<label class="tag"><input type="radio">...<span>...</span></label>`.
+// Used by the contact form's "interesse" and "contato preferido" chips.
+@mixin chip-toggle($checked-bg: $color-primary, $checked-text: $text-color-secondary) {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+
+    input {
+        position: absolute;
+        opacity: 0;
+        width: 1px;
+        height: 1px;
+        margin: 0;
+        pointer-events: none;
+    }
+
+    span {
+        display: inline-block;
+        padding: 9px 11px;
+        text-transform: uppercase;
+        color: $text-color;
+        border: 1px solid rgba($text-color, 0.6);
+        border-radius: 50px;
+        transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    input:checked+span {
+        background-color: $checked-bg;
+        color: $checked-text;
+        border-color: $checked-bg;
+    }
+
+    input:focus-visible+span {
+        outline: 2px solid $color-primary;
+        outline-offset: 2px;
+    }
+
+    &:hover span {
+        border-color: $color-primary;
+    }
+}
