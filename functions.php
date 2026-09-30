@@ -149,15 +149,67 @@ function wordpress_pagination()
     );
 }
 
+// O WordPress gera o <title> (o header.php não monta mais o título na mão).
 add_theme_support('title-tag');
+
+// Título da home: "Vergê Digital – Design e Programação para Marcas que Querem
+// Decolar" em vez de "Home - Vergê Digital". Se um plugin de SEO definir o
+// título, ele tem prioridade (usa pre_get_document_title, que roda antes).
+function vergedigital_titulo_home($partes)
+{
+    if (is_front_page()) {
+        $partes = array(
+            'title'   => get_bloginfo('name'),
+            'tagline' => 'Design e Programação para Marcas que Querem Decolar',
+        );
+    }
+    return $partes;
+}
+add_filter('document_title_parts', 'vergedigital_titulo_home');
+
+// og:title e og:type saem do header.php (por página); aqui ficam só as tags
+// que valem para o site inteiro, sem duplicar. Com o Yoast SEO ativo, ele
+// cuida da descrição e do Open Graph (editáveis no painel) e o tema não repete.
+// Meta description da home (≈155 caracteres, o que o Google costuma exibir).
+function vergedigital_descricao_home()
+{
+    return 'Vergê Digital: estúdio criativo que une design e programação. Identidade visual, sites, design editorial, gráfico e social media para sua marca decolar.';
+}
+
+// Descrição da página atual: a da home, o resumo do post/página ou um texto geral.
+function vergedigital_descricao()
+{
+    if (is_front_page()) {
+        return vergedigital_descricao_home();
+    }
+    if (is_singular() && has_excerpt()) {
+        return wp_strip_all_tags(get_the_excerpt());
+    }
+    return 'Um estúdio multifuncional que une design e programação para transformar ideias em soluções visuais e digitais. Fortaleça sua marca com a Vergê Digital.';
+}
+
+// Com o Yoast: usa a descrição da home só se o campo "Meta descrição" da
+// página Home estiver vazio no Yoast — o que for preenchido lá tem prioridade.
+function vergedigital_yoast_descricao_home($descricao)
+{
+    if (is_front_page() && trim((string) $descricao) === '') {
+        return vergedigital_descricao_home();
+    }
+    return $descricao;
+}
+add_filter('wpseo_metadesc', 'vergedigital_yoast_descricao_home');
+add_filter('wpseo_opengraph_desc', 'vergedigital_yoast_descricao_home');
+add_filter('wpseo_twitter_description', 'vergedigital_yoast_descricao_home');
 
 function add_meta_tags()
 {
-    echo '<meta name="description" content="Um estúdio multifuncional que une design e programação para transformar ideias em soluções visuais e digitais. Fortaleça sua marca com a Vergê Digital.">';
-    echo '<meta property="og:title" content="Vergê Digital – Design e Programação para Marcas que Querem Decolar" />';
-    echo '<meta property="og:description" content="Estúdio criativo que une design gráfico, editorial, webdesign e social media com programação para impulsionar marcas e negócios." />';
+    if (defined('WPSEO_VERSION')) {
+        return;
+    }
+
+    // og:description e twitter:description saem do header.php, com o mesmo texto.
+    echo '<meta name="description" content="' . esc_attr(vergedigital_descricao()) . '">';
     echo '<meta name="keywords" content="Vergê Digital, Design gráfico, Identidade visual, Programação, Webdesign, Social media, Design editorial, Criação de sites, Branding, Estúdio criativo" />';
-    echo '<meta property="og:type" content="website" />';
     echo '<meta property="og:site_name" content="Vergê Digital" />';
 }
 add_action('wp_head', 'add_meta_tags');
@@ -247,3 +299,10 @@ function vergedigital_whatsapp($mensagem = '', $numero = '5511974554227')
     }
     return $url;
 }
+
+// Verificação de propriedade do site no Google Search Console.
+function vergedigital_google_site_verification()
+{
+    echo '<meta name="google-site-verification" content="9Wmu1cVN03JUtRzwRJWCbT010LF0rLpfmqkrQWHYYNU">' . "\n";
+}
+add_action('wp_head', 'vergedigital_google_site_verification', 1);

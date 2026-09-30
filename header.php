@@ -9,23 +9,28 @@
     <!-- Google fontes -->
     <!-- <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet"> -->
 
-    <title><?php wp_title('|', true, 'right');
-            bloginfo('name'); ?></title>
+    <!-- O <title> é gerado pelo WordPress (add_theme_support('title-tag') em
+         functions.php). Montá-lo aqui com wp_title() + bloginfo() repetia o
+         nome do site no Google ("Home - Vergê DigitalVergê Digital"), porque
+         o plugin de SEO já devolve o título completo pelo wp_title(). -->
 
+    <?php // Com o Yoast SEO ativo, ele já gera Open Graph e Twitter Cards: o tema não duplica.
+    if (!defined('WPSEO_VERSION')) : ?>
     <!-- Open Graph (Facebook e LinkedIn) -->
-    <meta property="og:title" content="<?php echo esc_attr(get_the_title()); ?>" />
-    <meta property="og:description" content="<?php echo esc_attr(get_the_excerpt()); ?>" />
+    <meta property="og:title" content="<?php echo esc_attr(wp_get_document_title()); ?>" />
+    <meta property="og:description" content="<?php echo esc_attr(vergedigital_descricao()); ?>" />
     <meta property="og:image" content="<?php echo esc_url(get_the_post_thumbnail_url(null, 'full')); ?>" />
     <meta property="og:url" content="<?php echo esc_url(get_permalink()); ?>" />
-    <meta property="og:type" content="article" />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="<?php echo is_singular('post') ? 'article' : 'website'; ?>" />
+    <meta property="og:locale" content="pt_BR" />
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="<?php echo esc_attr(get_the_title()); ?>" />
-    <meta name="twitter:description" content="<?php echo esc_attr(get_the_excerpt()); ?>" />
+    <meta name="twitter:title" content="<?php echo esc_attr(wp_get_document_title()); ?>" />
+    <meta name="twitter:description" content="<?php echo esc_attr(vergedigital_descricao()); ?>" />
     <meta name="twitter:image" content="<?php echo esc_url(get_the_post_thumbnail_url(null, 'full')); ?>" />
     <meta name="twitter:site" content="@vergedigital_" />
+    <?php endif; ?>
 
     <!-- Header WordPress -->
     <?php wp_head(); ?>
