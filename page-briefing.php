@@ -12,7 +12,7 @@
         <span class="briefing__tag">Briefing</span>
         <h1>Webdesign &amp; programação</h1>
         <p>Olá! Agradecemos pelo contato e pelo seu interesse em realizar um site conosco. Para isso, gostaríamos de saber um pouco mais sobre sua ideia! Respondendo as questões abaixo teremos as informações básicas de que necessitamos para elaborar uma primeira versão do seu site.</p>
-        <p>Caso tenha alguma dúvida, fale com nosso programador pelo número <a href="https://wa.me/5511948410992" target="_blank" rel="noopener noreferrer">+55 11 94841-0992</a>. Agradecemos desde já!</p>
+        <p>Caso tenha alguma dúvida, fale com nosso programador pelo número <a href="<?php echo esc_url(vergedigital_whatsapp('Olá! Estou preenchendo o briefing no site da Vergê e fiquei com uma dúvida.', '5511948410992')); ?>" target="_blank" rel="noopener noreferrer">+55 11 94841-0992</a>. Agradecemos desde já!</p>
     </div>
 
     <?php if ($status === 'enviado') : ?>

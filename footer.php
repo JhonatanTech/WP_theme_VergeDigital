@@ -12,7 +12,7 @@
 
             <div class="footer-card__contact">
                 <ul class="footer-card__social">
-                    <li><a href="https://wa.me/message/THVPRTFBOLWFE1" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><img src="<?php echo get_stylesheet_directory_uri(); ?>/img/whats.svg" alt=""></a></li>
+                    <li><a href="<?php echo esc_url(vergedigital_whatsapp('Olá, Vergê! Vim pelo site e gostaria de mais informações sobre os serviços de vocês.')); ?>" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><img src="<?php echo get_stylesheet_directory_uri(); ?>/img/whats.svg" alt=""></a></li>
                     <li><a href="https://www.instagram.com/vergedigital_/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><img src="<?php echo get_stylesheet_directory_uri(); ?>/img/insta.svg" alt=""></a></li>
                     <li><a href="https://www.behance.net/vergedigital_" target="_blank" rel="noopener noreferrer" aria-label="Behance"><img src="<?php echo get_stylesheet_directory_uri(); ?>/img/behance.svg" alt=""></a></li>
                 </ul>
@@ -32,7 +32,7 @@
 <!-- Footer WordPress -->
 <?php wp_footer(); ?>
 
-<a href="https://wa.me/message/THVPRTFBOLWFE1" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco pelo WhatsApp"><i class="icon-whatsapp"></i></a>
+<a href="<?php echo esc_url(vergedigital_whatsapp('Olá, Vergê! Estou navegando pelo site e gostaria de tirar uma dúvida.')); ?>" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco pelo WhatsApp"><i class="icon-whatsapp"></i></a>
 
 <script>
     // Slick só é carregado na home (functions.php); nas outras páginas não

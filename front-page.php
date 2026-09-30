@@ -10,7 +10,7 @@
             <p>Fazemos de tudo para<br> sua marca se <strong>destacar.</strong></p>
             <div class="cta-group">
                 <a class="primary" href="https://vergedigital.com.br/category/todos/">Conheça nosso portfólio <span class="material-icons-round">arrow_outward</span></a>
-                <a class="secundary" href="https://wa.me/message/THVPRTFBOLWFE1">Peça seu orçamento<span class="material-icons-round">arrow_outward</span></a>
+                <a class="secundary" href="<?php echo esc_url(vergedigital_whatsapp('Olá, Vergê! Vim pelo site e gostaria de pedir um orçamento para a minha marca.')); ?>">Peça seu orçamento<span class="material-icons-round">arrow_outward</span></a>
             </div>
         </div>
 
@@ -147,7 +147,7 @@
             } ?>
 
             <div class="post seuprojeto">
-                <a class="secundary" href="https://wa.me/message/THVPRTFBOLWFE1">
+                <a class="secundary" href="<?php echo esc_url(vergedigital_whatsapp('Olá, Vergê! Vi os projetos de vocês no site e quero tirar o meu do papel. Podemos conversar?')); ?>">
                     <span class="material-icons-round">add</span>
                     <h3>Seu projeto</h3>
                 </a>
@@ -165,7 +165,7 @@
                 Fale com a gente!
             </h3>
             <ul>
-                <li><a href="https://wa.me/message/THVPRTFBOLWFE1" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><img src="<?php echo get_stylesheet_directory_uri(); ?>/img/whats.svg" alt="" width="62" height="61"></a></li>
+                <li><a href="<?php echo esc_url(vergedigital_whatsapp('Olá, Vergê! Vim pela seção de contato do site e gostaria de falar com vocês.')); ?>" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><img src="<?php echo get_stylesheet_directory_uri(); ?>/img/whats.svg" alt="" width="62" height="61"></a></li>
                 <li><a href="https://www.instagram.com/vergedigital_/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><img src="<?php echo get_stylesheet_directory_uri(); ?>/img/insta.svg" alt="" width="62" height="61"></a></li>
                 <li><a href="https://www.behance.net/vergedigital_" target="_blank" rel="noopener noreferrer" aria-label="Behance"><img src="<?php echo get_stylesheet_directory_uri(); ?>/img/behance.svg" alt="" width="62" height="61"></a></li>
             </ul>

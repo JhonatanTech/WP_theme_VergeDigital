@@ -76,7 +76,7 @@
                 <span class="material-icons-round menu-mobile">menu</span>
             </div>
             <?php wp_nav_menu(array('theme_location' => 'header')); ?>
-            <a href="https://wa.me/message/THVPRTFBOLWFE1" class="fale" target="_blank" rel="noopener noreferrer">Fale com a gente!</a>
+            <a href="<?php echo esc_url(vergedigital_whatsapp('Olá, Vergê! Vim pelo site e gostaria de conversar sobre um projeto.')); ?>" class="fale" target="_blank" rel="noopener noreferrer">Fale com a gente!</a>
         </nav>
     </header>
 

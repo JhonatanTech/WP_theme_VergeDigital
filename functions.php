@@ -219,3 +219,14 @@ function vergedigital_ocultar_excluir_categoria($actions, $term)
     return $actions;
 }
 add_filter('category_row_actions', 'vergedigital_ocultar_excluir_categoria', 10, 2);
+
+// Monta o link do WhatsApp com uma mensagem pronta (já codificada para URL).
+// Use sempre com esc_url() no href: esc_url(vergedigital_whatsapp("Olá!"))
+function vergedigital_whatsapp($mensagem = '', $numero = '5511974554227')
+{
+    $url = 'https://api.whatsapp.com/send?phone=' . $numero;
+    if ('' !== $mensagem) {
+        $url .= '&text=' . rawurlencode($mensagem);
+    }
+    return $url;
+}

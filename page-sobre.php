@@ -6,7 +6,7 @@
 <div class="container sobre">
     <h2>Um estúdio multifuncional com tudo que sua marca precisa para decolar.</h2>
     <p>A Vergê Digital nasceu em 2025 para unir duas áreas complementares: design e programação. Nossa missão é transformar ideias em soluções visuais e digitais impactantes, fortalecendo marcas e negócios.</p>
-    <a href="https://wa.me/message/THVPRTFBOLWFE1">Quero saber mais <span class="material-icons-round">arrow_outward</span></a>
+    <a href="<?php echo esc_url(vergedigital_whatsapp('Olá, Vergê! Conheci o estúdio pela página Sobre e quero saber mais sobre como vocês trabalham.')); ?>">Quero saber mais <span class="material-icons-round">arrow_outward</span></a>
 </div>
 
 <section class="servicos">

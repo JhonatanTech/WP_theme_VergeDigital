@@ -46,7 +46,7 @@
 </div>
 
 <div class="container orcar">
-    <a href="https://wa.me/message/THVPRTFBOLWFE1" class="contato">quero orçar meu projeto
+    <a href="<?php echo esc_url(vergedigital_whatsapp('Olá, Vergê! Vi os projetos de ' . single_cat_title('', false) . ' no site e quero orçar o meu.')); ?>" class="contato">quero orçar meu projeto
         <span class="material-icons-round">arrow_outward</span></a>
 </div>
 
