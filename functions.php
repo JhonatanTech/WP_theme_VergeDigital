@@ -2,6 +2,8 @@
 
 add_theme_support('post-thumbnails');
 
+require_once get_template_directory() . '/inc/briefing.php';
+
 function vergedigital_scripts()
 {
     wp_enqueue_style('vergedigital-style', get_stylesheet_directory_uri() . '/css/style.css', array(), filemtime(get_stylesheet_directory() . '/css/style.css'));

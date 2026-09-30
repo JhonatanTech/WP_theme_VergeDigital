@@ -1,0 +1,322 @@
+@use 'fonts' as *;
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// Mesmo fundo da página Sobre (.pagina-sobre em _common.scss).
+.pagina-briefing {
+    background: $color-background no-repeat center center;
+    background-image: url(./../img/background-sobre.webp);
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+
+    @include tablet {
+        background-image: none;
+    }
+}
+
+.briefing {
+    max-width: 860px;
+    padding-block: $space-8 $space-10;
+    color: $text-color;
+
+    @include tablet {
+        padding-block: $space-6 $space-7;
+    }
+
+    &__intro {
+        text-align: center;
+        margin-bottom: $space-7;
+        animation: backInUp;
+        animation-duration: 1.2s;
+
+        h1 {
+            @include gradient-text;
+            font-size: $text-xxxl;
+            margin: $space-2 0 $space-4;
+
+            @include mobile {
+                font-size: $text-xl;
+            }
+        }
+
+        p {
+            color: $text-color-muted;
+            max-width: 720px;
+            margin: 0 auto $space-2;
+            line-height: 1.6;
+        }
+    }
+
+    &__tag {
+        display: inline-block;
+        padding: 6px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba($color-primary, 0.45);
+        color: $color-primary;
+        font-size: $text-small;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        box-shadow: 0 0 20px rgba($color-primary, 0.2);
+    }
+
+    &__aviso {
+        display: flex;
+        gap: $space-2;
+        align-items: flex-start;
+        padding: $space-3;
+        margin-bottom: $space-4;
+        border-radius: 22px;
+        background: rgba($color-white, 0.05);
+        backdrop-filter: blur(12px);
+
+        .material-icons-round {
+            font-size: $text-large;
+        }
+
+        strong {
+            display: block;
+            font-size: $text-base;
+        }
+
+        p {
+            margin: 4px 0 0;
+            color: $text-color-muted;
+        }
+
+        &--ok {
+            border: 1px solid rgba($color-primary, 0.5);
+            box-shadow: 0 0 30px rgba($color-primary, 0.15);
+
+            .material-icons-round {
+                color: $color-primary;
+            }
+        }
+
+        &--erro {
+            border: 1px solid rgba($color-category-orange, 0.6);
+
+            .material-icons-round {
+                color: $color-category-orange;
+            }
+        }
+    }
+
+    &__hp {
+        position: absolute;
+        left: -9999px;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+    }
+
+    &__obrigatorio {
+        font-size: $text-small;
+        color: rgba($text-color, 0.6);
+        margin: 0 0 $space-3;
+
+        span {
+            color: $color-primary;
+        }
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: $space-4;
+    }
+
+    // Um cartão glass por seção, igual ao formulário de contato da home.
+    &__secao {
+        display: flex;
+        flex-direction: column;
+        gap: $space-5;
+        padding: $space-6;
+        background: rgba($color-white, 0.05);
+        backdrop-filter: blur(12px);
+        border-radius: 22px;
+        border: 1px solid rgba($color-white, 0.1);
+        box-shadow: 0 8px 24px rgba($color-black, 0.4);
+
+        @include tablet {
+            padding: $space-4 $space-3;
+        }
+
+        h2 {
+            display: flex;
+            align-items: center;
+            gap: $space-2;
+            margin: 0;
+            font-size: $text-large;
+            font-weight: 600;
+
+            span {
+                color: $color-primary;
+                font-size: $text-small;
+                padding: 4px 10px;
+                border-radius: 999px;
+                border: 1px solid rgba($color-primary, 0.45);
+            }
+        }
+    }
+
+    &__campo {
+        border: none;
+        margin: 0;
+        padding: 0;
+        min-width: 0;
+
+        > label,
+        legend {
+            display: block;
+            width: 100%;
+            padding: 0;
+            margin-bottom: $space-1;
+            line-height: 1.5;
+        }
+
+        .req {
+            color: $color-primary;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            line-height: 36px;
+            background-color: transparent;
+            border: none;
+            border-bottom: 2px solid rgba($text-color, 0.4);
+            color: $text-color;
+            font-family: inherit;
+            font-size: 16px;
+            transition: border-color 0.2s ease;
+
+            &::placeholder {
+                color: rgba($text-color, 0.4);
+            }
+
+            &:focus-visible {
+                outline: none;
+                border-color: $color-primary;
+            }
+
+            &:user-invalid {
+                border-color: $color-category-orange;
+            }
+        }
+
+        textarea {
+            line-height: 1.5;
+            padding-top: 8px;
+            resize: vertical;
+            field-sizing: content;
+            min-height: 2lh;
+        }
+    }
+
+    &__opcoes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: $space-1;
+        margin-top: $space-1;
+
+        .tag {
+            @include chip-toggle;
+
+            span {
+                text-transform: none;
+                font-size: 15px;
+            }
+        }
+    }
+
+    &__outro {
+        margin-top: $space-2;
+    }
+
+    &__enviar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: $space-3;
+        flex-wrap: wrap;
+        margin-top: $space-2;
+
+        @include mobile {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: $space-1;
+            font-weight: bold;
+            padding: 14px $space-4;
+            font-family: inherit;
+            @include glow-button;
+
+            .material-icons-round {
+                font-size: $text-base;
+            }
+        }
+    }
+
+    // Toggle "enviar cópia": input nativo escondido, trilho no <span>.
+    &__switch {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+        color: $text-color-muted;
+
+        input {
+            position: absolute;
+            opacity: 0;
+            width: 1px;
+            height: 1px;
+            margin: 0;
+        }
+
+        span {
+            position: relative;
+            flex: none;
+            width: 42px;
+            height: 24px;
+            border-radius: 999px;
+            background: $color-gray-dark;
+            border: 1px solid rgba($text-color, 0.2);
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 3px;
+                left: 3px;
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+                background: $text-color;
+                transition: transform 0.2s ease, background-color 0.2s ease;
+            }
+        }
+
+        input:checked + span {
+            background: $color-primary;
+            box-shadow: 0 0 16px rgba($color-primary, 0.4);
+
+            &::after {
+                transform: translateX(18px);
+                background: $color-black;
+            }
+        }
+
+        input:focus-visible + span {
+            outline: 2px solid $color-primary;
+            outline-offset: 3px;
+        }
+    }
+}
