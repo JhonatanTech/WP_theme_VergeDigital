@@ -101,10 +101,12 @@
 
 <section class="posts" id="projetos">
     <?php
+    // Só os posts marcados com a categoria "Exibir na home", sem limite.
     $args = array(
-        'numberposts' => 14,
-        'orderby' => 'date',
-        'order' => 'DESC',
+        'numberposts'   => -1,
+        'category_name' => 'exibir-na-home',
+        'orderby'       => 'date',
+        'order'         => 'DESC',
     );
     $my_posts = get_posts($args);
     //var_dump($my_posts); 

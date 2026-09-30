@@ -153,3 +153,69 @@ function adicionar_classe_sobre_no_body($classes) {
     return $classes;
 }
 add_filter('body_class', 'adicionar_classe_sobre_no_body');
+
+// Categorias fixas do tema (links dos serviços, "ver mais" e a lista de
+// projetos da home). Elas sempre existem: são recriadas se faltarem e não
+// podem ser excluídas pelo painel.
+function vergedigital_categorias_fixas()
+{
+    return array(
+        'identidade-visual' => 'Identidade visual',
+        'design-grafico'    => 'Design gráfico',
+        'editorial'         => 'Editorial',
+        'exibir-na-home'    => 'Exibir na home',
+        'sites'             => 'Sites',
+        'social-media'      => 'Social media',
+        'todos'             => 'Todos',
+    );
+}
+
+// Recria as que estiverem faltando. Roda só no painel, com uma única
+// consulta para conferir todas de uma vez.
+function vergedigital_garantir_categorias()
+{
+    $fixas = vergedigital_categorias_fixas();
+
+    $existentes = get_terms(array(
+        'taxonomy'   => 'category',
+        'slug'       => array_keys($fixas),
+        'hide_empty' => false,
+        'fields'     => 'id=>slug',
+    ));
+    if (is_wp_error($existentes)) {
+        return;
+    }
+
+    foreach (array_diff(array_keys($fixas), $existentes) as $slug) {
+        wp_insert_term($fixas[$slug], 'category', array('slug' => $slug));
+    }
+}
+add_action('admin_init', 'vergedigital_garantir_categorias');
+
+// Bloqueia a exclusão (individual, em massa ou via REST) das categorias fixas.
+function vergedigital_bloquear_exclusao_categoria($term_id, $taxonomy)
+{
+    if ('category' !== $taxonomy) {
+        return;
+    }
+
+    $term = get_term($term_id, 'category');
+    if ($term && !is_wp_error($term) && array_key_exists($term->slug, vergedigital_categorias_fixas())) {
+        wp_die(
+            esc_html(sprintf('A categoria "%s" é usada pelo tema e não pode ser excluída.', $term->name)),
+            'Categoria protegida',
+            array('response' => 403, 'back_link' => true)
+        );
+    }
+}
+add_action('pre_delete_term', 'vergedigital_bloquear_exclusao_categoria', 10, 2);
+
+// Esconde o link "Excluir" dessas categorias na lista de Posts → Categorias.
+function vergedigital_ocultar_excluir_categoria($actions, $term)
+{
+    if (array_key_exists($term->slug, vergedigital_categorias_fixas())) {
+        unset($actions['delete']);
+    }
+    return $actions;
+}
+add_filter('category_row_actions', 'vergedigital_ocultar_excluir_categoria', 10, 2);
