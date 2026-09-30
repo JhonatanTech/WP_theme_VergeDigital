@@ -118,6 +118,8 @@
 
         function openMenu() {
             menu.classList.add('active');
+            menuIcon.setAttribute('aria-expanded', 'true');
+            menuIcon.setAttribute('aria-label', 'Fechar menu');
             gsap.fromTo(
                 menuItems,
                 { opacity: 0, y: -10 },
@@ -127,6 +129,8 @@
 
         function closeMenu() {
             menu.classList.remove('active');
+            menuIcon.setAttribute('aria-expanded', 'false');
+            menuIcon.setAttribute('aria-label', 'Abrir menu');
         }
 
         menuIcon.addEventListener('click', function () {
@@ -328,7 +332,7 @@
         }
 
         var heading = section.querySelector('.text h2');
-        var cards = section.querySelectorAll('.lista li');
+        var cards = section.querySelectorAll('.lista .servico');
 
         // O reveal do heading fica FORA do timeline pinado, de propósito:
         // o SplitText roda antes da fonte carregar (aviso inofensivo no

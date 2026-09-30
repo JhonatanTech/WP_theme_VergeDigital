@@ -49,8 +49,10 @@
             <p>Somos um estúdio formado por amigos criativos que se conheceram na faculdade e seguiram caminhos diferentes — mas que se complementam aqui na Vergê.</p>
             <strong>Do papel ao pixel, juntos transformamos ideias em realidade.</strong>
         </div>
-        <ul class="lista">
-            <li class="servico-identidade-visual">
+        <!-- <div> e não <ul>/<li>: no celular o Slick embrulha os cards em
+             <div>s próprios e a lista ficava inválida para leitores de tela. -->
+        <div class="lista">
+            <div class="servico servico-identidade-visual">
                 <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/identidade-320.webp" srcset="<?php echo get_stylesheet_directory_uri(); ?>/img/identidade-320.webp 320w, <?php echo get_stylesheet_directory_uri(); ?>/img/identidade.webp 700w" sizes="(max-width: 770px) calc(100vw - 112px), 160px" alt="" width="700" height="467" loading="lazy">
                 <h3>Identidade<br>
                     visual</h3>
@@ -58,8 +60,8 @@
                 <a href="<?php echo esc_url(home_url('/category/identidade-visual/')); ?>">Conhecer <span class="material-icons-round">
                         arrow_outward
                     </span></a>
-            </li>
-            <li class="servico-editorial">
+            </div>
+            <div class="servico servico-editorial">
                 <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/editorial-320.webp" srcset="<?php echo get_stylesheet_directory_uri(); ?>/img/editorial-320.webp 320w, <?php echo get_stylesheet_directory_uri(); ?>/img/editorial.webp 700w" sizes="(max-width: 770px) calc(100vw - 112px), 160px" alt="" width="700" height="467" loading="lazy">
                 <h3>Design<br>
                     editorial</h3>
@@ -67,8 +69,8 @@
                 <a href="<?php echo esc_url(home_url('/category/editorial/')); ?>">Conhecer <span class="material-icons-round">
                         arrow_outward
                     </span></a>
-            </li>
-            <li class="servico-design-grafico">
+            </div>
+            <div class="servico servico-design-grafico">
                 <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/grafico-320.webp" srcset="<?php echo get_stylesheet_directory_uri(); ?>/img/grafico-320.webp 320w, <?php echo get_stylesheet_directory_uri(); ?>/img/grafico.webp 700w" sizes="(max-width: 770px) calc(100vw - 112px), 160px" alt="" width="700" height="467" loading="lazy">
                 <h3>Design<br>
                     gráfico</h3>
@@ -76,8 +78,8 @@
                 <a href="<?php echo esc_url(home_url('/category/design-grafico/')); ?>">Conhecer <span class="material-icons-round">
                         arrow_outward
                     </span></a>
-            </li>
-            <li class="servico-sites">
+            </div>
+            <div class="servico servico-sites">
                 <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/webdesign-320.webp" srcset="<?php echo get_stylesheet_directory_uri(); ?>/img/webdesign-320.webp 320w, <?php echo get_stylesheet_directory_uri(); ?>/img/webdesign.webp 700w" sizes="(max-width: 770px) calc(100vw - 112px), 160px" alt="" width="700" height="467" loading="lazy">
                 <h3>Webdesign &<br>
                     Programação</h3>
@@ -85,8 +87,8 @@
                 <a href="<?php echo esc_url(home_url('/category/sites/')); ?>">Conhecer <span class="material-icons-round">
                         arrow_outward
                     </span></a>
-            </li>
-            <li class="servico-social-media">
+            </div>
+            <div class="servico servico-social-media">
                 <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/socialmedia-320.webp" srcset="<?php echo get_stylesheet_directory_uri(); ?>/img/socialmedia-320.webp 320w, <?php echo get_stylesheet_directory_uri(); ?>/img/socialmedia.webp 700w" sizes="(max-width: 770px) calc(100vw - 112px), 160px" alt="" width="700" height="467" loading="lazy">
                 <h3>Design de<br>
                     Social media</h3>
@@ -94,8 +96,8 @@
                 <a href="<?php echo esc_url(home_url('/category/social-media/')); ?>">Conhecer <span class="material-icons-round">
                         arrow_outward
                     </span></a>
-            </li>
-        </ul>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -120,7 +122,9 @@
             <?php if (!empty($my_posts)) {
                 foreach ($my_posts as $p) { ?>
                     <div class="post">
-                        <a href="<?php echo get_permalink($p->ID); ?>">
+                        <!-- O título (.preview) só aparece no hover, com display: none, e
+                             leitores de tela ignoram texto escondido: o aria-label garante o nome. -->
+                        <a href="<?php echo esc_url(get_permalink($p->ID)); ?>" aria-label="<?php echo esc_attr(get_the_title($p->ID)); ?>">
                             <?php
                             // Grade de 3 colunas (2 no tablet, 1 no celular): "medium_large"
                             // (768px) + sizes evita baixar a imagem original inteira.
@@ -137,7 +141,7 @@
                                     <span class="material-icons-round">person</span>
                                     <?php echo get_the_author_meta('display_name', $p->post_author); ?>
                                 </p> -->
-                                <h3><?php echo $p->post_title; ?></h3>
+                                <h3><?php echo esc_html(get_the_title($p->ID)); ?></h3>
                                 <!-- <p><?php echo $p->post_excerpt; ?></p> -->
                             </div>
                         </a>

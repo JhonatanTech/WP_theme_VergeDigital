@@ -31,7 +31,8 @@
             while (have_posts()) {
                 the_post(); ?><!-- Loop de posts -->
                 <div class="post">
-                    <a href="<?php echo get_permalink(); ?>">
+                    <!-- O card só tem imagem: o aria-label dá ao link um nome para leitores de tela. -->
+                    <a href="<?php echo esc_url(get_permalink()); ?>" aria-label="<?php echo esc_attr(get_the_title()); ?>">
                         <?php echo get_the_post_thumbnail(get_the_ID(), 'full') ? get_the_post_thumbnail(get_the_ID(), 'full') : '<img src="' . get_stylesheet_directory_uri() . '/img/thumbnail.jpg" alt="" width="1024" height="701" loading="lazy">'; ?>
                     </a>
                 </div>

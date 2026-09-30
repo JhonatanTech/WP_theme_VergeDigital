@@ -69,6 +69,35 @@
         });
     });
 
+    // O Slick marca as bolinhas como abas (role="tablist"/"tab"/"presentation"
+    // e os slides como "tabpanel"). Dentro de uma <ul> isso quebra a lista
+    // para leitores de tela (o Lighthouse acusa). Aqui elas viram uma lista
+    // simples de botões com nome claro, e o ativo é marcado com aria-current.
+    function vergedigitalAcessibilidadeDots(slider) {
+        var $dots = slider.$dots;
+        if (!$dots || !$dots.length) {
+            return;
+        }
+        var total = $dots.find('li').length;
+
+        $dots.removeAttr('role');
+        $dots.find('li').removeAttr('role').each(function(i) {
+            jQuery(this).find('button')
+                .removeAttr('role aria-selected aria-controls id tabindex')
+                .attr('aria-label', 'Ver serviço ' + (i + 1) + ' de ' + total)
+                .attr('aria-current', i === slider.currentSlide ? 'true' : null);
+        });
+        slider.$slides.removeAttr('role aria-describedby');
+    }
+
+    // setTimeout: o Slick roda o próprio initADA() logo DEPOIS de disparar
+    // esses eventos e recolocaria os papéis — a limpeza precisa vir depois dele.
+    jQuery('.lista').on('init reInit afterChange', function(event, slider) {
+        setTimeout(function() {
+            vergedigitalAcessibilidadeDots(slider);
+        }, 0);
+    });
+
     if (window.innerWidth <= 768) {
         // 1 card por vez (não 1.2): com o "espiar" do próximo card, o
         // texto dele aparecia cortado no meio da palavra, sem nenhum

@@ -221,6 +221,12 @@ header {
         }
 
         .menu-mobile {
+            // Agora é <button>: zera o visual padrão do navegador.
+            background: none;
+            border: 0;
+            padding: 0;
+            width: auto;
+            overflow: visible;
             position: relative;
             z-index: 1;
             color: $color-primary;

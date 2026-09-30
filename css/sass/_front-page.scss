@@ -213,10 +213,9 @@
             // some no fundo escuro. Só entram quando o Slick vira carrossel
             // no mobile (slidesToShow:1, ver footer.php).
             //
-            // O <li> do dot fica dentro de .lista igual aos <li> dos
-            // cards, então herdaria o estilo de card (fundo, padding,
-            // borda arredondada...) se não fosse resetado explicitamente
-            // aqui — por isso o reset é tão extenso.
+            // O reset do <li> do dot é extenso de propósito: os cards já
+            // foram <li> e ele herdava o estilo de card (fundo, padding,
+            // borda arredondada...). Mantido como proteção.
             .slick-dots {
                 display: flex !important;
                 justify-content: center;
@@ -260,7 +259,7 @@
                 }
             }
 
-            li {
+            .servico {
                 background: $color-secondary;
                 width: calc((100% - #{$space-3 * 4}) / 5);
                 border-radius: 20px;

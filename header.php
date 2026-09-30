@@ -78,7 +78,9 @@
                     <img class="logo" src="<?php echo get_stylesheet_directory_uri();  ?>/img/logo.svg"
                         alt="Logo Verge Digital" width="70" height="70">
                 </a>
-                <span class="material-icons-round menu-mobile">menu</span>
+                <!-- <button> (e não <span>): controle clicável precisa de papel e nome
+                     na árvore de acessibilidade, para leitores de tela e agentes de IA. -->
+                <button type="button" class="material-icons-round menu-mobile" aria-label="Abrir menu" aria-expanded="false">menu</button>
             </div>
             <?php wp_nav_menu(array('theme_location' => 'header')); ?>
             <a href="<?php echo esc_url(vergedigital_whatsapp('Olá, Vergê! Vim pelo site e gostaria de conversar sobre um projeto.')); ?>" class="fale" target="_blank" rel="noopener noreferrer">Fale com a gente!</a>
