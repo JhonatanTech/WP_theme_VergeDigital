@@ -6,7 +6,7 @@
 <div class="container sobre">
     <h2>Um estúdio multifuncional com tudo que sua marca precisa para decolar.</h2>
     <p>A Vergê Digital nasceu em 2025 para unir duas áreas complementares: design e programação. Nossa missão é transformar ideias em soluções visuais e digitais impactantes, fortalecendo marcas e negócios.</p>
-    <a href="https://wa.me/message/THVPRTFBOLWFE1">quero saber mais <span class="material-icons-round">arrow_outward</span></a>
+    <a href="https://wa.me/message/THVPRTFBOLWFE1">Quero saber mais <span class="material-icons-round">arrow_outward</span></a>
 </div>
 
 <section class="servicos">
@@ -16,7 +16,7 @@
 
             <div class="servico-box destaque">
                 <div class="servico-box__icone">
-                    <img src="<?php echo get_template_directory_uri(); ?>/img/identidade.svg" alt="Identidade visual">
+                    <img src="<?php echo get_template_directory_uri(); ?>/img/identidade.webp" alt="Identidade visual">
                 </div>
                 <div class="servico-box__conteudo">
                     <h3>Identidade visual</h3>
@@ -29,7 +29,7 @@
 
             <div class="servico-box">
                 <div class="servico-box__icone">
-                    <img src="<?php echo get_template_directory_uri(); ?>/img/grafico.svg" alt="Design gráfico">
+                    <img src="<?php echo get_template_directory_uri(); ?>/img/grafico.webp" alt="Design gráfico">
                 </div>
                 <div class="servico-box__conteudo">
                     <h3>Design gráfico</h3>
@@ -42,7 +42,7 @@
 
             <div class="servico-box">
                 <div class="servico-box__icone">
-                    <img src="<?php echo get_template_directory_uri(); ?>/img/editorial.svg" alt="Design editorial">
+                    <img src="<?php echo get_template_directory_uri(); ?>/img/editorial.webp" alt="Design editorial">
                 </div>
                 <div class="servico-box__conteudo">
                     <h3>Design editorial</h3>
@@ -55,7 +55,7 @@
 
             <div class="servico-box">
                 <div class="servico-box__icone">
-                    <img src="<?php echo get_template_directory_uri(); ?>/img/webdesign.svg" alt="Webdesign & Programação">
+                    <img src="<?php echo get_template_directory_uri(); ?>/img/webdesign.webp" alt="Webdesign & Programação">
                 </div>
                 <div class="servico-box__conteudo">
                     <h3>Webdesign & Programação</h3>
@@ -71,7 +71,7 @@
 
             <div class="servico-box">
                 <div class="servico-box__icone">
-                    <img src="<?php echo get_template_directory_uri(); ?>/img/socialmedia.svg" alt="Social media">
+                    <img src="<?php echo get_template_directory_uri(); ?>/img/socialmedia.webp" alt="Social media">
                 </div>
                 <div class="servico-box__conteudo">
                     <h3>Social media</h3>
@@ -97,7 +97,7 @@
             </p>
         </div>
         <div class="essencia__imagem">
-            <img src="<?php echo get_template_directory_uri(); ?>/img/isotipo-glass.svg" alt="Forma abstrata" />
+            <img src="<?php echo get_template_directory_uri(); ?>/img/isotipo-glass.webp" alt="Forma abstrata" />
         </div>
     </div>
 </section>

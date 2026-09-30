@@ -22,7 +22,7 @@ $curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : g
         <?php if (have_posts()) :
             while (have_posts()) : the_post(); ?>
                 <div class="post">
-                    <?php echo get_the_post_thumbnail($p->ID) ? get_the_post_thumbnail($p->ID) : '<img src="' . get_stylesheet_directory_uri() . '/img/bg-about.jpg" alt="Caneca">'; ?>
+                    <?php echo get_the_post_thumbnail($p->ID) ? get_the_post_thumbnail($p->ID) : '<img src="' . get_stylesheet_directory_uri() . '/img/thumbnail.jpg" alt="" width="1024" height="701" loading="lazy">'; ?>
                     <div class="preview">
                         <p class="date">
                             <span class="material-icons-round">today</span>

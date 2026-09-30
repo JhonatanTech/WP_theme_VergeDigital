@@ -1,15 +1,25 @@
 @use 'variables'as *;
+@use 'mixins' as *;
 
+// WOFF2 (≈48 KB, contra 120 KB do TTF). "swap" mostra o texto na fonte do
+// sistema enquanto a Rethink Sans carrega, em vez de deixá-lo invisível.
+// O arquivo também é pré-carregado no <head> (functions.php).
 @font-face {
-    src: url(./../fonts/Rethink_Sans/RethinkSans-VariableFont_wght.ttf);
+    src: url(./../fonts/Rethink_Sans/RethinkSans-VariableFont_wght.woff2) format("woff2");
     font-family: "Rethink Sans";
-    font-weight: normal;
+    font-weight: 100 900;
+    font-display: swap;
 }
 
+// Subconjunto só com os ícones usados no tema (1,6 KB, contra 400 KB do OTF
+// completo), gerado com fontTools. Ícone novo = gerar o subset de novo com o
+// nome dele na lista. "block" porque, sem a fonte, o ícone apareceria como
+// texto ("arrow_outward") durante o carregamento.
 @font-face {
     font-family: "Material Icons Round";
     font-style: normal;
-    src: url(./../fonts/MaterialIconsRound-Regular.otf);
+    src: url(./../fonts/MaterialIconsRound-subset.woff2) format("woff2");
+    font-display: block;
 }
 
 $text-small: 14px;
@@ -39,9 +49,17 @@ body {
 }
 
 h1,
+h2,
+h3 {
+    margin: 0;
+}
+
+h1,
 h1 strong {
     font-size: $text-xxxl;
-    @media (max-width: $breakpoint-mobile) {
+    font-weight: normal;
+
+    @include mobile {
         font-size: $text-xxl;
     }
 }
@@ -49,8 +67,9 @@ h1 strong {
 h2,
 h2 strong {
     font-size: $text-xxl;
+    font-weight: normal;
 
-    @media (max-width: $breakpoint-mobile) {
+    @include mobile {
         font-size: $text-xl;
     }
 }
@@ -58,8 +77,9 @@ h2 strong {
 h3,
 h3 strong {
     font-size: $text-large;
+    font-weight: bold;
 
-    @media (max-width: $breakpoint-mobile) {
+    @include mobile {
         font-size: $text-large;
     }
 }
@@ -73,13 +93,8 @@ strong {
 
 a {
     font-size: $text-base;
-    
-    @media (max-width: $breakpoint-mobile) {
-        font-size: $text-small;
-    }
 
-    &:hover{
-        animation: heartBeat;
-        animation-duration: 1s;
+    @include mobile {
+        font-size: $text-small;
     }
 }

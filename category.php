@@ -31,21 +31,9 @@
             while (have_posts()) {
                 the_post(); ?><!-- Loop de posts -->
                 <div class="post">
-                    <a href="<?php echo get_permalink($p->ID); ?>">
-                        <?php echo get_the_post_thumbnail($p->ID) ? get_the_post_thumbnail($p->ID) : '<img src="' . get_stylesheet_directory_uri() . '/img/bg-about.jpg" alt="Caneca">'; ?>
-                        <!-- <div class="preview">
-                        <p class="date">
-                            <span class="material-icons-round">today</span>
-                            <?php echo get_the_time('d/m/Y', $p->ID); ?>
-                        </p>
-                        <p class="date">
-                            <span class="material-icons-round">person</span>
-                            <a href="<?php echo esc_url(get_author_posts_url(get_post()->post_author)); ?>"><?php echo get_the_author_meta('display_name', $p->post_author); ?></a>
-                        </p>
-                        <h3><?php echo the_title(); ?></h3>
-                        <p><?php echo get_the_excerpt(); ?></p>
-                        <a href="<?php echo get_permalink($p->ID); ?>">Quero ler este post!<span class="material-icons-round">arrow_forward</span></a>
-                    </div> --></a>
+                    <a href="<?php echo get_permalink(); ?>">
+                        <?php echo get_the_post_thumbnail(get_the_ID(), 'full') ? get_the_post_thumbnail(get_the_ID(), 'full') : '<img src="' . get_stylesheet_directory_uri() . '/img/thumbnail.jpg" alt="" width="1024" height="701" loading="lazy">'; ?>
+                    </a>
                 </div>
             <?php }
         } else { ?>

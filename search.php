@@ -11,7 +11,7 @@
             while (have_posts()) {
                 the_post(); ?><!-- Loop de posts -->
                 <div class="post">
-                    <?php echo get_the_post_thumbnail($p->ID) ? get_the_post_thumbnail($p->ID) : '<img src="' . get_stylesheet_directory_uri() . '/img/bg-about.jpg" alt="Caneca">'; ?>
+                    <?php echo get_the_post_thumbnail($p->ID) ? get_the_post_thumbnail($p->ID) : '<img src="' . get_stylesheet_directory_uri() . '/img/thumbnail.jpg" alt="" width="1024" height="701" loading="lazy">'; ?>
                     <div class="preview">
                         <p class="date">
                             <span class="material-icons-round">today</span>
