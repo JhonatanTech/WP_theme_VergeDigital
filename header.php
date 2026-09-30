@@ -32,37 +32,55 @@
 </head>
 
 <body <?php body_class(); ?>>
+    <!-- Tela de carregamento: preta, logo girando no meio. Propositalmente
+         independente do GSAP (CSS puro + este script isolado) — se o GSAP
+         não carregar do CDN por algum motivo, a tela preta ainda some
+         sozinha (no "load" da página, com um timeout de segurança de 4s
+         pra nunca travar preso). -->
+    <div id="preloader" class="preloader" aria-hidden="true">
+        <img class="preloader__logo" src="<?php echo get_stylesheet_directory_uri(); ?>/img/logo.svg" alt="" width="70" height="70" fetchpriority="high">
+    </div>
+    <script>
+        (function () {
+            var pre = document.getElementById('preloader');
+            if (!pre) return;
+            var done = false;
+
+            function hide() {
+                if (done) return;
+                done = true;
+                pre.classList.add('is-hidden');
+                window.dispatchEvent(new CustomEvent('preloaderhidden'));
+                // Tira do layout depois do fade (0,5s no CSS).
+                setTimeout(function () { pre.style.display = 'none'; }, 500);
+            }
+
+            window.addEventListener('load', hide);
+            setTimeout(hide, 4000);
+        })();
+    </script>
+
     <!-- <div class="search-header">
         <div class="container">
         <?php get_search_form(); ?>
         </div>
     </div> -->
+
     <header>
         <nav class="container">
-            <a href="<?php echo esc_url(home_url('/')); ?>" class="logo-link">
-                <img class="logo" src="<?php echo get_stylesheet_directory_uri();  ?>/img/logo.svg"
-                    alt="Logo Verge Digital">
-            </a>
-            <span class="material-icons-round menu-mobile">menu</span>
+            <div class="logo-menu-group">
+                <a href="<?php echo esc_url(home_url('/')); ?>" class="logo-link">
+                    <img class="logo" src="<?php echo get_stylesheet_directory_uri();  ?>/img/logo.svg"
+                        alt="Logo Verge Digital" width="70" height="70">
+                </a>
+                <span class="material-icons-round menu-mobile">menu</span>
+            </div>
             <?php wp_nav_menu(array('theme_location' => 'header')); ?>
             <a href="https://wa.me/message/THVPRTFBOLWFE1" class="fale" target="_blank" rel="noopener noreferrer">Fale com a gente!</a>
         </nav>
     </header>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuIcon = document.querySelector('.menu-mobile');
-            const menu = document.querySelector('.menu');
+    <main id="conteudo">
 
-            menuIcon.addEventListener('click', () => {
-                menu.classList.toggle('active'); // Adiciona ou remove a classe 'active'
-            });
-
-            // Opcional: Fecha o menu ao clicar fora dele
-            document.addEventListener('click', (event) => {
-                if (!menu.contains(event.target) && !menuIcon.contains(event.target)) {
-                    menu.classList.remove('active');
-                }
-            });
-        });
-    </script>
+    <!-- O toggle do menu mobile (e a animação de entrada dos itens) agora
+         vive em js/animations.js, junto com as demais animações GSAP do tema. -->

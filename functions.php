@@ -24,8 +24,35 @@ function vergedigital_scripts()
         wp_enqueue_script('slick-carousel-js', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js', array('jquery'), '1.9.0', true);
     }
 
+    // GSAP + plugins (100% grátis desde a v3.13) via CDN, só na home e no
+    // header/footer globais — anima hero, serviços, projetos, contato e footer.
+    wp_enqueue_script('gsap', 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js', array(), '3.13.0', true);
+    wp_enqueue_script('gsap-scrolltrigger', 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js', array('gsap'), '3.13.0', true);
+    wp_enqueue_script('gsap-splittext', 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js', array('gsap'), '3.13.0', true);
+    wp_enqueue_script('vergedigital-animations', get_stylesheet_directory_uri() . '/js/animations.js', array('gsap', 'gsap-scrolltrigger', 'gsap-splittext'), filemtime(get_stylesheet_directory() . '/js/animations.js'), true);
 }
 add_action('wp_enqueue_scripts', 'vergedigital_scripts');
+
+// <model-viewer> (logo 3D do hero): o script (255 KB) + o logo.glb (291 KB)
+// eram o caminho crítico mais longo da home. Agora só começam a baixar depois
+// do "load" — o preloader some no mesmo momento e o 3D aparece logo em seguida.
+function vergedigital_model_viewer_deferred()
+{
+    if (!is_front_page()) {
+        return;
+    }
+    ?>
+    <script>
+        window.addEventListener('load', function () {
+            var s = document.createElement('script');
+            s.type = 'module';
+            s.src = 'https://cdn.jsdelivr.net/npm/@google/model-viewer@4.1.0/dist/model-viewer.min.js';
+            document.head.appendChild(s);
+        });
+    </script>
+    <?php
+}
+add_action('wp_footer', 'vergedigital_model_viewer_deferred', 30);
 
 // CSS que não participa da primeira pintura (carrossel e animações de
 // entrada) carrega sem bloquear a renderização: media="print" + troca pra

@@ -1,0 +1,45 @@
+@use 'variables' as *;
+
+// Tela de carregamento. O giro é @keyframes CSS puro (não GSAP) de propósito
+// — precisa funcionar mesmo se o GSAP falhar ao carregar. Quem esconde (via
+// .is-hidden) é o script isolado em header.php.
+.preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $color-background;
+    // Só opacity (animação composta, na GPU). Transicionar "visibility"
+    // fazia o Lighthouse acusar animação não composta; o script em
+    // header.php põe display:none depois que o fade termina.
+    transition: opacity 0.5s ease;
+
+    &__logo {
+        width: 72px;
+        height: 72px;
+        animation: preloader-spin 1.1s linear infinite;
+    }
+
+    &.is-hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+@keyframes preloader-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .preloader__logo {
+        animation: none;
+    }
+}
